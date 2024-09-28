@@ -1,0 +1,16 @@
+{
+    "name": "works/webworks",
+    "description": "Manage and host the content of one or more websites through an API",
+    "autoload": {
+        "psr-4": {
+            "WORKS\\WEBWORKS\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WORKS\\WEBWORKS\\Providers\\WEBWORKSServiceProvider"
+            ]
+        }
+    }
+}
