@@ -52,5 +52,14 @@ class WebworksServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../Migrations/' => database_path('migrations'),
         ], 'migrations');
+
+        $this->publishes([
+            __DIR__.'/../Seeders/WebsiteSeeder.php' => database_path('seeders/WebsiteSeeder.php'),
+        ], 'seeders');
+
+        $this->publishes([
+            __DIR__.'/../Seeders/ErrorPageSeeder.php' => database_path('seeders/ErrorPageSeeder.php'),
+        ], 'seeders');
     }
 }
+

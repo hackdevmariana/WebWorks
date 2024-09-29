@@ -13,6 +13,11 @@ class Website extends Model
     {
         return $this->belongsToMany(Logo::class);
     }
+
+    public function errorPages()
+    {
+        return $this->hasMany(ErrorPage::class, 'website_id');
+    }
     
 }
 

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Works\Webworks\Http\Controllers\Api\WebsiteController;
 use Works\Webworks\Http\Controllers\Api\CustomMenuController;
+use Works\Webworks\Http\Controllers\Api\ErrorPageController;
+
 
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Works\Webworks\Http\Controllers'], function () {
     Route::get('webworks-test', function () {
@@ -17,4 +19,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Works\Webworks\Http\Controll
         // Obtener un menú específico por ID
         Route::get('/{menu_id}', [CustomMenuController::class, 'show']);
     });
+    Route::prefix('websites/{name}/error')->group(function () {
+        // Obtener una página de error personalizada por número de error
+        Route::get('/{error_number}', [ErrorPageController::class, 'show']);
+    });
 });
+
+
