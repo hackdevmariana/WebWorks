@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Works\Webworks\Http\Controllers\Api\WebsiteController;
-use Works\Webworks\Http\Controllers\Api\CustomMenuController;
-use Works\Webworks\Http\Controllers\Api\ErrorPageController;
+use Works\Webworks\Controllers\Api\WebsiteController;
+use Works\Webworks\Controllers\Api\CustomMenuController;
+use Works\Webworks\Controllers\Api\ErrorPageController;
+use Works\Webworks\Controllers\Api\SocialNetworkController;
 
-
-Route::group(['prefix' => 'api/v1', 'namespace' => 'Works\Webworks\Http\Controllers'], function () {
+Route::group(['prefix' => 'api/v1', 'namespace' => 'Works\Webworks\Controllers'], function () {
     Route::get('webworks-test', function () {
         return response()->json(['message' => 'Congratulations! WebWorks is up and running!']);
     });
@@ -14,15 +14,19 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Works\Webworks\Http\Controll
     Route::get('websites/{name}/data', [WebsiteController::class, 'getHome']);
 
     Route::prefix('websites/{name}/menus')->group(function () {
-        // Obtener todos los menús de una página web
         Route::get('/', [CustomMenuController::class, 'index']);
-        // Obtener un menú específico por ID
         Route::get('/{menu_id}', [CustomMenuController::class, 'show']);
     });
+
     Route::prefix('websites/{name}/error')->group(function () {
-        // Obtener una página de error personalizada por número de error
-        Route::get('/{error_number}', [ErrorPageController::class, 'show']);
+        Route::get('/', [ErrorPageController::class, 'index']); // Ruta general sin número de error
+        Route::get('/{error_number}', [ErrorPageController::class, 'show']); // Ruta específica con número de error
+    });
+    
+    
+
+    Route::prefix('websites/{name}/socialnetworks')->group(function () {
+        Route::get('/', [SocialNetworkController::class, 'index']);
+        Route::get('/{socialnetwork}', [SocialNetworkController::class, 'show']);
     });
 });
-
-

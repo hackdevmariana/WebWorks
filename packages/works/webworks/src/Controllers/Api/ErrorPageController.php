@@ -1,6 +1,6 @@
 <?php
 
-namespace Works\Webworks\Http\Controllers\Api;
+namespace Works\Webworks\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Works\Webworks\Models\Website;
@@ -9,6 +9,25 @@ use Illuminate\Http\Request;
 
 class ErrorPageController extends Controller
 {
+
+    public function index($name)
+    {
+        // Buscar el website por su nombre
+        $website = Website::where('web', $name)->firstOrFail();
+
+        // Buscar todas las páginas de error asociadas a este sitio web
+        $errorPages = ErrorPage::where('website_id', $website->id)->get();
+
+        // Devolver las páginas de error
+        if ($errorPages->isEmpty()) {
+            return response()->json([
+                'message' => 'No error pages found for this website.'
+            ], 404);
+        }
+
+        return response()->json($errorPages);
+    }
+
     /**
      * Obtener una página de error personalizada por número de error y nombre del sitio web.
      */
