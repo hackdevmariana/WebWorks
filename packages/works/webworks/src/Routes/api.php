@@ -6,6 +6,10 @@ use Works\Webworks\Controllers\Api\CustomMenuController;
 use Works\Webworks\Controllers\Api\ErrorPageController;
 use Works\Webworks\Controllers\Api\SectionHeadingController;
 use Works\Webworks\Controllers\Api\SocialNetworkController;
+use Works\Webworks\Controllers\Api\CopyController;
+
+
+
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('webworks-test', function () {
@@ -33,4 +37,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('/', [SocialNetworkController::class, 'index']);
         Route::get('/{socialnetwork}', [SocialNetworkController::class, 'show']);
     });
+
+    Route::prefix('websites/{name}/copy')->group(function () {
+        Route::get('/', [CopyController::class, 'index']);
+        Route::get('/{copyName}', [CopyController::class, 'show']);
+    });
+
+    
 });
