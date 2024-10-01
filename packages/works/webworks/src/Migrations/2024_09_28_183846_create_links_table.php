@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('links', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('website_id')->constrained()->onDelete('cascade'); // Relación con la web
-            $table->string('text');  // Texto del enlace
-            $table->string('url');  // URL del enlace
-            $table->string('icon')->nullable();  // Icono asociado al enlace
-            $table->timestamps();
-        });
-        
+        // Solo crea la tabla si no existe
+        if (!Schema::hasTable('links')) {
+            Schema::create('links', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('website_id')->constrained()->onDelete('cascade'); // Relación con la web
+                $table->string('text');  // Texto del enlace
+                $table->string('url');  // URL del enlace
+                $table->string('icon')->nullable();  // Icono asociado al enlace
+                $table->timestamps();
+            });
+        }
     }
 
     /**

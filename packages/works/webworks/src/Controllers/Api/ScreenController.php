@@ -1,6 +1,6 @@
 <?php
 
-namespace Works\Webworks\Http\Controllers\Api;
+namespace Works\Webworks\Controllers\Api;
 
 use Works\Webworks\Models\Screen;
 use Illuminate\Http\Request;

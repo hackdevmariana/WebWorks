@@ -9,20 +9,18 @@ class CustomMenu extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'website_id',
-        'name',
-    ];
+    protected $fillable = ['website_id', 'name'];
 
-    // Define la relación con la tabla websites si es necesario
-    public function website()
-    {
-        return $this->belongsTo(Website::class);
-    }
-
-    // Relación con el modelo Link
     public function links()
     {
-        return $this->hasMany(Link::class);
+        return $this->belongsToMany(Link::class, 'link_menu')
+                    ->withPivot('order')
+                    ->withTimestamps();
+    }
+
+    public function screens()
+    {
+        return $this->belongsToMany(Screen::class, 'menu_screen')
+                    ->withTimestamps();
     }
 }

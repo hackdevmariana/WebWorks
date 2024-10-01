@@ -1,6 +1,6 @@
 <?php
+namespace Works\Webworks\Controllers\Api;
 
-namespace Works\Webworks\Http\Controllers\Api;
 
 use Works\Webworks\Models\CustomMenu;
 use Works\Webworks\Models\Website; // Asegúrate de importar el modelo Website

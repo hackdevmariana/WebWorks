@@ -11,14 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('screens', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('website_id')->constrained()->onDelete('cascade');  // Relación con la web
-            $table->string('screen');  // Nombre del tamaño de la pantalla
-            $table->integer('width');  // Ancho de la pantalla
-            $table->timestamps();
-        });
-        
+        // Solo crea la tabla si no existe
+        if (!Schema::hasTable('screens')) {
+            Schema::create('screens', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('website_id')->constrained()->onDelete('cascade');  // Relación con la web
+                $table->string('screen');  // Nombre del tamaño de la pantalla
+                $table->integer('width');  // Ancho de la pantalla
+                $table->timestamps();
+            });
+        }
     }
 
     /**
