@@ -7,6 +7,7 @@ use Works\Webworks\Controllers\Api\ErrorPageController;
 use Works\Webworks\Controllers\Api\SectionHeadingController;
 use Works\Webworks\Controllers\Api\SocialNetworkController;
 use Works\Webworks\Controllers\Api\CopyController;
+use Works\Webworks\Controllers\Api\ContactController;
 
 
 
@@ -43,5 +44,8 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('/{copyName}', [CopyController::class, 'show']);
     });
 
+    Route::prefix('websites/{websiteName}/contact')->group(function () {
+        Route::get('/', [ContactController::class, 'index']);
+    });
     
 });

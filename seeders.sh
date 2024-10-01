@@ -8,5 +8,6 @@
 # php artisan db:seed --class="Works\Webworks\Seeders\CustomMenuSeeder"
 # php artisan db:seed --class="Works\Webworks\Seeders\LinkSeeder"
 
-php artisan db:seed --class="Works\Webworks\Seeders\CopySeeder"
+# php artisan db:seed --class="Works\Webworks\Seeders\CopySeeder"
+php artisan db:seed --class="Works\Webworks\Seeders\ContactSeeder"
 
