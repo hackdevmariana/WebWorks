@@ -3,7 +3,7 @@
 namespace Works\Webworks\Controllers\Api;
 
 
-use Works\Webworks\Models\Website; // Asegúrate de importar el modelo Website
+use Works\Webworks\Models\Website; 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

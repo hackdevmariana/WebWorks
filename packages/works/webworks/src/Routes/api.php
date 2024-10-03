@@ -9,6 +9,7 @@ use Works\Webworks\Controllers\Api\SocialNetworkController;
 use Works\Webworks\Controllers\Api\CopyController;
 use Works\Webworks\Controllers\Api\ContactController;
 use Works\Webworks\Controllers\Api\DevelopedController;
+use Works\Webworks\Controllers\Api\VideoController;
 
 
 
@@ -53,4 +54,11 @@ Route::group(['prefix' => 'api/v1'], function () {
         Route::get('/{developedName}', [DevelopedController::class, 'show']);
     });
     
+
+    Route::prefix('websites/{websiteName}/video')->group(function () {
+        Route::get('/', [VideoController::class, 'index']);
+        Route::get('/{videoName}', [VideoController::class, 'show']);
+    });
+
+
 });

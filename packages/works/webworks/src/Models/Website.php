@@ -18,6 +18,10 @@ class Website extends Model
     {
         return $this->hasMany(ErrorPage::class, 'website_id');
     }
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'website_id');
+    }
     
 }
 
