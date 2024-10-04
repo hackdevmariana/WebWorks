@@ -1,4 +1,10 @@
 <?php
+namespace Works\Webworks\Controllers\Api;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Works\Webworks\Models\Content;
+use Works\Webworks\Models\Website;
 
 class HeroController extends Controller
 {
