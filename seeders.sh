@@ -11,5 +11,6 @@
 # php artisan db:seed --class="Works\Webworks\Seeders\CopySeeder"
 # php artisan db:seed --class="Works\Webworks\Seeders\ContactSeeder"
 # php artisan db:seed --class="Works\Webworks\Seeders\DevelopedSeeder"
-php artisan db:seed --class="Works\Webworks\Seeders\VideoSeeder"
+# php artisan db:seed --class="Works\Webworks\Seeders\VideoSeeder"
+php artisan db:seed --class="Works\Webworks\Seeders\ContentSeeder"
 
