@@ -22,29 +22,40 @@ class Content extends Model
         'author_id'
     ];
 
+    // Relación con el autor (si es necesario)
     public function author()
     {
         return $this->belongsTo(Author::class);
     }
 
+    // Relación con el periodo de publicación (si es necesario)
     public function publicationPeriod()
     {
         return $this->hasOne(PublicationPeriod::class);
     }
 
+    // Relación con carruseles
     public function carousels()
     {
         return $this->belongsToMany(Carousel::class, 'carousel_content', 'content_id', 'carousel_id');
     }
 
-    // Esta relación es suficiente para obtener los items del carrusel
+    // Relación con ítems del carrusel
     public function carouselItems()
     {
         return $this->belongsToMany(Content::class, 'carousel_content', 'carousel_id', 'content_id');
     }
 
-    public function gallery()
+    // Relación con galerías
+    public function galleries()
     {
-        return $this->belongsTo(Gallery::class);
+        return $this->belongsToMany(Gallery::class, 'content_gallery');
+    }
+
+    // Relación con ítems de la galería
+    public function galleryItems()
+    {
+        return $this->belongsToMany(Content::class, 'content_gallery', 'gallery_id', 'content_id');
+        
     }
 }

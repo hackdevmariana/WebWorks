@@ -15,4 +15,5 @@ php artisan db:seed --class="Works\Webworks\Seeders\VideoSeeder"
 php artisan db:seed --class="Works\Webworks\Seeders\ContentSeeder"
 php artisan db:seed --class="Works\Webworks\Seeders\StringContentSeeder"
 php artisan db:seed --class="Works\Webworks\Seeders\ImageContentSeeder"
+php artisan db:seed --class="Works\Webworks\Seeders\GalleryContentSeeder"
 
