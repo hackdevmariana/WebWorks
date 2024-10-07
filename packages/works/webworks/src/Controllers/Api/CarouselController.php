@@ -11,25 +11,63 @@ class CarouselController extends Controller
 {
     public function index($websiteName, Request $request)
     {
-        $website = Website::where('name', $websiteName)->firstOrFail();
-        
-        $query = Content::where('website_id', $website->id)
-                        ->where('content_type', 'carousel');
-        
-        $carousels = $query->paginate($request->get('perPage', 10));
+        $website = Website::where('web', $websiteName)->firstOrFail();
 
-        return response()->json($carousels);
+        // Consulta el contenido del tipo 'carousel'
+        $carousels = Content::where('website_id', $website->id)
+            ->where('content_type', 'carousel')
+            ->get(); // Cambiamos paginate por get para obtener todos los carouseles
+
+        // Mapea los resultados para obtener solo los campos deseados
+        $formattedCarousels = $carousels->map(function ($carousel) {
+            return [
+                'name' => $carousel->name,
+                'title' => $carousel->title,
+                'slug' => $carousel->slug,
+            ];
+        });
+
+        return response()->json($formattedCarousels);
     }
 
-    public function show($websiteName, $carouselName)
-    {
-        $website = Website::where('name', $websiteName)->firstOrFail();
+    public function show($websiteName, $carouselIdentifier)
+{
+    // Busca el sitio web por su nombre
+    $website = Website::where('web', $websiteName)->firstOrFail();
 
-        $carouselItem = Content::where('website_id', $website->id)
-                               ->where('name', $carouselName)
-                               ->where('content_type', 'carousel')
-                               ->firstOrFail();
-                               
-        return response()->json($carouselItem);
+    // Busca el carousel específico por su slug o name
+    $carousel = $website->carousels()->where('name', $carouselIdentifier)->first();
+
+    if (!$carousel) {
+        return response()->json(['message' => 'Carousel not found'], 404);
     }
+
+    // Obtener el contenido relacionado con este carousel
+    $carouselContents = $carousel->contents() // Aquí cambias carouselContents a contents
+        ->with('author') // Si necesitas incluir datos del autor, también puedes cargar la relación
+        ->get();
+
+    // Formatear el contenido para que solo incluya los campos deseados
+    $formattedContents = $carouselContents->map(function ($content) {
+        return [
+            'name' => $content->name,
+            'title' => $content->title,
+            'slug' => $content->slug,
+            'image' => $content->image,
+            'url' => $content->url,
+            // Otros campos que necesites...
+        ];
+    });
+
+    return response()->json([
+        'carousel' => [
+            'name' => $carousel->name,
+            'id' => $carousel->id,
+            // Otros campos del carrusel si es necesario
+        ],
+        'contents' => $formattedContents,
+    ]);
+}
+
+
 }

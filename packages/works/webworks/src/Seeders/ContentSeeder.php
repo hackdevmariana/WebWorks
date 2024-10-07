@@ -12,6 +12,7 @@ use Works\Webworks\Models\Carousel;
 use Works\Webworks\Models\Author;
 use Works\Webworks\Models\PublicationPeriod;
 use Works\Webworks\Models\PublicationPattern;
+use Illuminate\Support\Facades\Log;
 
 class ContentSeeder extends Seeder
 {
@@ -138,7 +139,7 @@ class ContentSeeder extends Seeder
             ['slug' => Str::slug('Carousel for the homepage')],
             [
                 'website_id' => $website->id,
-                'name' => 'homepage-carousel', 
+                'web' => 'homepage-carousel', 
                 'title' => 'Carousel for the homepage',
                 'content_type' => 'carousel',
                 'is_default' => true,
@@ -146,13 +147,15 @@ class ContentSeeder extends Seeder
                 'draft' => false
             ]
         );
-
-        return Carousel::firstOrCreate(
-            ['content_id' => $carouselContent->id],
-            ['website_id' => $website->id, 'name' => 'homepage-carousel'] 
+    
+        $carousel = Carousel::firstOrCreate(
+            ['name' => 'Homepage Carousel', 'website_id' => $website->id],
+            ['content_id' => $carouselContent->id] // Añadir el campo content_id
         );
+    
+        $this->createCarouselItems($website, $author, $carousel);
     }
-
+    
 
     private function createCarouselItems($website, $author, $carousel)
     {
@@ -166,6 +169,7 @@ class ContentSeeder extends Seeder
                 'is_default' => true,
                 'author_id' => $author->id,
             ],
+            
             [
                 'slug' => Str::slug('Carousel Item 2'),
                 'title' => 'Carousel Item 2',
@@ -203,64 +207,40 @@ class ContentSeeder extends Seeder
                 'author_id' => $author->id,
             ],
         ];
+
         foreach ($carouselItems as $item) {
-            $content = Content::firstOrCreate(
-                ['slug' => $item['slug']],
-                array_merge($item, ['website_id' => $website->id, 'name' => $item['title']])
+            $content = Content::updateOrCreate(
+                ['slug' => $item['slug']], 
+                array_merge($item, ['website_id' => $website->id])
             );
     
-            // Relacionar contenido con el carrusel usando la relación correcta
-            $carousel->contents()->attach($content->id);
+            // Relacionar contenido con el carrusel
+            if (!$carousel->contents()->where('content_id', $content->id)->exists()) {
+                $carousel->contents()->attach($content->id);
+            }
+            
         }
     }
-
-    private function createCallToAction($website, $author)
-    {
-        Content::firstOrCreate(
-            ['slug' => Str::slug('Sign Up Today!')],
-            [
-                'website_id' => $website->id,
-                'name' => 'sign-up-now',
-                'title' => 'Sign Up Today!',
-                'subtitle' => 'Don’t miss our offers',
-                'content_type' => 'call-to-action',
-                'url' => 'https://google.com',
-                'is_default' => true,
-                'author_id' => $author->id,
-                'draft' => false
-            ]
-        );
-    }
-
-
 
     public function run()
     {
         $website = Website::firstOrCreate(
             ['web' => 'example.com'],
-            ['url' => 'https://example.com']
+            [
+                'name' => 'Example Website',
+                'domain' => 'example.com',
+                'is_default' => true
+            ]
         );
 
         $author = $this->createAuthor($website);
-
-        $this->createHero($website, $author);
-        $this->createCallToAction($website, $author);
-        $this->createGallery($website, $author);
-
-        // Crear el carrusel y obtener el modelo de carrusel
-        $carousel = $this->createCarousel($website, $author);
-
-        // Asegurarse de que el carrusel fue creado correctamente antes de agregar los ítems
-        if ($carousel) {
-            $this->createCarouselItems($website, $author, $carousel);
-        }
-
         $newsContent = $this->createNews($website, $author);
+        $this->createHero($website, $author);
+        $this->createPost($website, $author);
+        $this->createGallery($website, $author);
+        $this->createCarousel($website, $author);
         $publicationPattern = $this->createPattern($website);
         $this->createPeriod($website, $newsContent, $publicationPattern);
-
-        $this->createPost($website, $author);
     }
-
-
 }
+

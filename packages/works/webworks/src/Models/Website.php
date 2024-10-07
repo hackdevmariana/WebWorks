@@ -22,6 +22,11 @@ class Website extends Model
     {
         return $this->hasMany(Video::class, 'website_id');
     }
+
+    public function carousels()
+    {
+        return $this->hasMany(Carousel::class, 'website_id');
+    }
     
 }
 

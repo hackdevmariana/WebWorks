@@ -1,16 +1,15 @@
-<?php
+<?php 
+
 namespace Works\Webworks\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Works\Webworks\Models\Author;
-use Works\Webworks\Models\PublicationPeriod;
-use Works\Webworks\Models\Carousel;
 
 class Content extends Model
 {
     protected $fillable = [
         'website_id',
         'name',
+        'slug',
         'title',
         'subtitle',
         'text',
@@ -33,14 +32,19 @@ class Content extends Model
         return $this->hasOne(PublicationPeriod::class);
     }
 
-    public function carouselItems()
-    {
-        return $this->belongsToMany(Content::class, 'carousel_content', 'carousel_id', 'content_id')
-            ->where('content_type', 'carousel_item');
-    }
-
     public function carousels()
     {
         return $this->belongsToMany(Carousel::class, 'carousel_content', 'content_id', 'carousel_id');
+    }
+
+    // Esta relación es suficiente para obtener los items del carrusel
+    public function carouselItems()
+    {
+        return $this->belongsToMany(Content::class, 'carousel_content', 'carousel_id', 'content_id');
+    }
+
+    public function gallery()
+    {
+        return $this->belongsTo(Gallery::class);
     }
 }

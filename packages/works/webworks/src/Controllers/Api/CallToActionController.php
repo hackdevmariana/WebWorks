@@ -11,10 +11,10 @@ class CallToActionController extends Controller
 {
     public function index($websiteName, Request $request)
     {
-        $website = Website::where('name', $websiteName)->firstOrFail();
+        $website = Website::where('web', $websiteName)->firstOrFail();
         
         $query = Content::where('website_id', $website->id)
-                        ->where('content_type', 'calltoaction');
+                        ->whereIn('content_type', ['call-to-action', 'call_to_action', 'calltoaction']);
         
         $callToActions = $query->paginate($request->get('perPage', 10));
 
@@ -23,11 +23,11 @@ class CallToActionController extends Controller
 
     public function show($websiteName, $callToActionName)
     {
-        $website = Website::where('name', $websiteName)->firstOrFail();
+        $website = Website::where('web', $websiteName)->firstOrFail();
 
         $callToActionItem = Content::where('website_id', $website->id)
                                    ->where('name', $callToActionName)
-                                   ->where('content_type', 'calltoaction')
+                                   ->whereIn('content_type', ['call-to-action', 'call_to_action', 'calltoaction'])
                                    ->firstOrFail();
                                    
         return response()->json($callToActionItem);
