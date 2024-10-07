@@ -10,18 +10,28 @@ class HeroController extends Controller
 {
     public function index($websiteName)
     {
-        $heros = Content::where('website_id', $websiteName)
+        // Obtener el sitio web por nombre
+        $website = Website::where('web', $websiteName)->firstOrFail();
+
+        // Obtener los héroes asociados al sitio web
+        $heros = Content::where('website_id', $website->id) // Usar el id del sitio web
                         ->where('content_type', 'hero')
                         ->get();
+
         return response()->json($heros);
     }
 
     public function show($websiteName, $heroItemName)
     {
-        $heroItem = Content::where('website_id', $websiteName)
+        // Obtener el sitio web por nombre
+        $website = Website::where('web', $websiteName)->firstOrFail();
+
+        // Buscar el héroe por nombre
+        $heroItem = Content::where('website_id', $website->id) // Usar el id del sitio web
                            ->where('name', $heroItemName)
                            ->where('content_type', 'hero')
                            ->firstOrFail();
+
         return response()->json($heroItem);
     }
 }

@@ -11,7 +11,7 @@ class ContentController extends Controller
 {
     public function index($websiteName, Request $request)
     {
-        $website = Website::where('name', $websiteName)->firstOrFail();
+        $website = Website::where('web', $websiteName)->firstOrFail();
         
         $query = Content::where('website_id', $website->id);
         
