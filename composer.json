@@ -25,6 +25,7 @@
     "autoload": {
         "psr-4": {
             "Works\\Webworks\\": "packages/works/webworks/src/",
+            "Works\\Eventworks\\": "packages/works/eventworks/src/",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
@@ -33,6 +34,7 @@
     "autoload-dev": {
         "psr-4": {
             "Works\\Webworks\\": "packages/works/webworks/src/",
+            "Works\\Eventworks\\": "packages/works/eventworks/src/",
             "Tests\\": "tests/"
         }
     },
