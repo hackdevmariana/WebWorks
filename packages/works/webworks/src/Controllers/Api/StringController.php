@@ -13,24 +13,28 @@ class StringController extends Controller
     {
         $website = Website::where('web', $websiteName)->firstOrFail();
 
-        
-        $query = Content::where('website_id', $website->id)
-                        ->where('content_type', 'string');
-        
-        $strings = $query->paginate($request->get('perPage', 10));
+        // Obtener todos los contenidos de tipo 'string' sin paginación
+        $strings = Content::where('website_id', $website->id)
+                          ->where('content_type', 'string')
+                          ->get(); // Usar get() en lugar de paginate()
 
         return response()->json($strings);
     }
 
-    public function show($websiteName, $stringName)
+    public function show($websiteName, $stringIdentifier)
     {
-        $website = Website::where('name', $websiteName)->firstOrFail();
+        $website = Website::where('web', $websiteName)->firstOrFail();
 
+        // Buscar por nombre o slug
         $stringItem = Content::where('website_id', $website->id)
-                             ->where('name', $stringName)
+                             ->where(function($query) use ($stringIdentifier) {
+                                 $query->where('name', $stringIdentifier)
+                                       ->orWhere('slug', $stringIdentifier);
+                             })
                              ->where('content_type', 'string')
                              ->firstOrFail();
-                             
-        return response()->json($stringItem);
+
+        // Devolver solo el campo "text"
+        return response()->json(['text' => $stringItem->text]);
     }
 }
