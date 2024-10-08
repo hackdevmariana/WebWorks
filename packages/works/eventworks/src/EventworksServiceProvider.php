@@ -10,6 +10,8 @@ class EventworksServiceProvider extends ServiceProvider
     {
         // Cargar las migraciones
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
+
     }
 
     public function register()

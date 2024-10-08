@@ -22,11 +22,11 @@ class CreatePackageStructure extends Command
             return;
         }
 
-        // Mantener los nombres tal cual sin pasarlos a StudlyCase
+        
         $paths = [
             "packages/{$vendor}/{$package}/src/Models/",
             "packages/{$vendor}/{$package}/src/Migrations/",
-            "packages/{$vendor}/{$package}/src/Controllers/",
+            "packages/{$vendor}/{$package}/src/Controllers/Api/",
             "packages/{$vendor}/{$package}/src/Seeders/",
         ];
 
@@ -56,7 +56,7 @@ class CreatePackageStructure extends Command
 
         // Mover Controller al paquete
         File::move(app_path("Http/Controllers/{$name}Controller.php"), base_path("packages/{$vendor}/{$package}/src/Controllers/{$name}Controller.php"));
-        $this->info("Moved Controller to packages/{$vendor}/{$package}/src/Controllers/");
+        $this->info("Moved Controller to packages/{$vendor}/{$package}/src/Controllers/Api");
 
         // Mover Migration al paquete
         $migrationFile = $this->getLastMigrationFile($name);
