@@ -11,5 +11,5 @@ Route::group(['prefix' => 'api/v1'], function () {
         return response()->json(['message' => 'Congratulations! EventWorks is up and running!']);
     });
     Route::get('events/tags', [EventTagController::class, 'index']);
-    Route::get('events/category', [EventCategoryController::class, 'index']);
+    Route::get('events/categories', [EventCategoryController::class, 'index']);
 });

@@ -12,17 +12,19 @@ class EventTagSeeder extends Seeder
     public function run()
     {
         $tags = [
-            'Economía',
-            'Filosofía',
-            'Historia',
-            'Política',
-            'Sociología',
-            'Antropología',
-            'Psicología',
-            'Literatura',
-            'Derecho',
-            'Arte',
-            'Teología',
+            'Siglo de Oro',
+            'Historia de España',
+            'Escuela de Salamanca',
+            'Renacimiento',
+            'Ilustración',
+            'Edad Media',
+            'Modernismo',
+            'Existencialismo',
+            'Derecho Romano',
+            'Neoclasicismo',
+            'Filosofía política',
+            'Escuela Austríaca',
+            
         ];
 
         foreach ($tags as $tag) {
