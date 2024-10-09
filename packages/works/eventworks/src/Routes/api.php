@@ -5,6 +5,9 @@ use Works\Eventworks\Controllers\Api\EventTagController;
 use Works\Eventworks\Controllers\Api\EventCategoryController;
 use Works\Eventworks\Controllers\Api\ParticipantController;
 use Works\Eventworks\Controllers\Api\OrganizerController;
+use Works\Eventworks\Controllers\Api\LocationController;
+
+
 
 
 
@@ -19,6 +22,9 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('/organizers', [OrganizerController::class, 'index']); // Listado de todas las organizaciones
     Route::get('/organizers/{organizerSlug}', [OrganizerController::class, 'show']);
 
+    // Locations
+    Route::get('locations', [LocationController::class, 'index']);
+    Route::get('locations/{slug}', [LocationController::class, 'show']);
 
     // Temporary routes without access token
     Route::get('events/participants', [ParticipantController::class, 'index']);
