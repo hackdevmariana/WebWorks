@@ -6,4 +6,5 @@
 # php artisan db:seed --class="Works\Eventworks\Seeders\EventCategorySeeder"
 # php artisan db:seed --class="Works\Eventworks\Seeders\ParticipantSeeder"
 # php artisan db:seed --class="Works\Eventworks\Seeders\OrganizerSeeder"
-php artisan db:seed --class="Works\Eventworks\Seeders\LocationSeeder"
+# php artisan db:seed --class="Works\Eventworks\Seeders\LocationSeeder"
+php artisan db:seed --class="Works\Eventworks\Seeders\MediaSeeder"

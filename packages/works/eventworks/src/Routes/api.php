@@ -6,11 +6,7 @@ use Works\Eventworks\Controllers\Api\EventCategoryController;
 use Works\Eventworks\Controllers\Api\ParticipantController;
 use Works\Eventworks\Controllers\Api\OrganizerController;
 use Works\Eventworks\Controllers\Api\LocationController;
-
-
-
-
-
+use Works\Eventworks\Controllers\Api\MediaController;
 
 
 Route::group(['prefix' => 'api/v1/events'], function () {
@@ -25,6 +21,10 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     // Locations
     Route::get('locations', [LocationController::class, 'index']);
     Route::get('locations/{slug}', [LocationController::class, 'show']);
+
+    // Media
+    Route::get('media', [MediaController::class, 'index']); // Listado de todos los archivos multimedia
+    Route::get('media/{slug}', [MediaController::class, 'show']); // Detalles de un archivo multimedia por su slug
 
     // Temporary routes without access token
     Route::get('events/participants', [ParticipantController::class, 'index']);
