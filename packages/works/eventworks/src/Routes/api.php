@@ -7,6 +7,9 @@ use Works\Eventworks\Controllers\Api\ParticipantController;
 use Works\Eventworks\Controllers\Api\OrganizerController;
 use Works\Eventworks\Controllers\Api\LocationController;
 use Works\Eventworks\Controllers\Api\MediaController;
+use Works\Eventworks\Controllers\Api\EventLinkController;
+
+
 
 
 Route::group(['prefix' => 'api/v1/events'], function () {
@@ -15,7 +18,7 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     });
     Route::get('events/tags', [EventTagController::class, 'index']);
     Route::get('events/categories', [EventCategoryController::class, 'index']);
-    Route::get('/organizers', [OrganizerController::class, 'index']); // Listado de todas las organizaciones
+    Route::get('/organizers', [OrganizerController::class, 'index']); 
     Route::get('/organizers/{organizerSlug}', [OrganizerController::class, 'show']);
 
     // Locations
@@ -23,8 +26,12 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('locations/{slug}', [LocationController::class, 'show']);
 
     // Media
-    Route::get('media', [MediaController::class, 'index']); // Listado de todos los archivos multimedia
-    Route::get('media/{slug}', [MediaController::class, 'show']); // Detalles de un archivo multimedia por su slug
+    Route::get('media', [MediaController::class, 'index']); 
+    Route::get('media/{slug}', [MediaController::class, 'show']); 
+
+    // Links
+    Route::get('links', [EventLinkController::class, 'index']);
+    Route::get('links/{linkName}', [EventLinkController::class, 'show']);
 
     // Temporary routes without access token
     Route::get('events/participants', [ParticipantController::class, 'index']);
