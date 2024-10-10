@@ -8,6 +8,7 @@ use Works\Eventworks\Controllers\Api\OrganizerController;
 use Works\Eventworks\Controllers\Api\LocationController;
 use Works\Eventworks\Controllers\Api\MediaController;
 use Works\Eventworks\Controllers\Api\EventLinkController;
+use Works\Eventworks\Controllers\Api\CycleController;
 
 
 
@@ -32,6 +33,10 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     // Links
     Route::get('links', [EventLinkController::class, 'index']);
     Route::get('links/{linkName}', [EventLinkController::class, 'show']);
+
+    // Cycles
+    Route::get('cycles', [CycleController::class, 'index']);
+    Route::get('cycles/{cycleName}', [CycleController::class, 'show']);
 
     // Temporary routes without access token
     Route::get('events/participants', [ParticipantController::class, 'index']);
