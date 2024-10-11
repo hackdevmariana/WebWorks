@@ -11,4 +11,5 @@
 # php artisan db:seed --class="Works\Eventworks\Seeders\EventLinkSeeder"
 # php artisan db:seed --class="Works\Eventworks\Seeders\CycleSeeder"
 # php artisan db:seed --class="Works\Eventworks\Seeders\EventSeeder"
-php artisan db:seed --class="Works\Eventworks\Seeders\ProgramSeeder"
+# php artisan db:seed --class="Works\Eventworks\Seeders\ProgramSeeder"
+php artisan db:seed --class="Works\Eventworks\Seeders\SpeakerSeeder"

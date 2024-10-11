@@ -11,6 +11,9 @@ use Works\Eventworks\Controllers\Api\EventLinkController;
 use Works\Eventworks\Controllers\Api\CycleController;
 use Works\Eventworks\Controllers\Api\EventController;
 use Works\Eventworks\Controllers\Api\ProgramController;
+use Works\Eventworks\Controllers\Api\SpeakerController;
+
+
 
 
 Route::group(['prefix' => 'api/v1/events'], function () {
@@ -72,6 +75,13 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('programs/{eventSlug}', [ProgramController::class, 'getProgramByEvent']);
     Route::get('programs/{eventSlug}/activities/{activitySlug}', [ProgramController::class, 'getActivityByName']);
     Route::get('programs/{eventSlug}/day/{day}', [ProgramController::class, 'getProgramByDay']);
+
+    // Speakers
+
+    Route::get('speakers/{speakerName}', [SpeakerController::class, 'getSpeakerByName']);
+    Route::get('speakers', [SpeakerController::class, 'getAllSpeakers']);
+    Route::get('{eventSlug}/speakers', [SpeakerController::class, 'getSpeakersByEvent']);
+
 
 
     // Temporary routes without access token
