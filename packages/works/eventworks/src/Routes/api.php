@@ -15,7 +15,7 @@ use Works\Eventworks\Controllers\Api\SpeakerController;
 use Works\Eventworks\Controllers\Api\AttendanceController;
 use Works\Eventworks\Controllers\Api\PriceController;
 
-
+use Works\Eventworks\Controllers\Api\PreregistrationController;
 
 
 
@@ -94,6 +94,11 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     // Prices
     Route::get('events/{eventSlug}/prices', [PriceController::class, 'getPricesByEvent']);
     Route::get('events/{eventSlug}/prices-today', [PriceController::class, 'getTodayPricesByEvent']);
+
+    // Pre-registration
+
+    Route::get('events/{eventSlug}/pre-registered', [PreregistrationController::class, 'getPreRegisteredByEvent']);
+
 
 
     // Temporary routes without access token
