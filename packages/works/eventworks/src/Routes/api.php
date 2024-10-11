@@ -12,6 +12,11 @@ use Works\Eventworks\Controllers\Api\CycleController;
 use Works\Eventworks\Controllers\Api\EventController;
 use Works\Eventworks\Controllers\Api\ProgramController;
 use Works\Eventworks\Controllers\Api\SpeakerController;
+use Works\Eventworks\Controllers\Api\AttendanceController;
+use Works\Eventworks\Controllers\Api\PriceController;
+
+
+
 
 
 
@@ -82,6 +87,13 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('speakers', [SpeakerController::class, 'getAllSpeakers']);
     Route::get('{eventSlug}/speakers', [SpeakerController::class, 'getSpeakersByEvent']);
 
+    // Attendance
+    Route::get('events/{participantSlug}/attendance', [AttendanceController::class, 'getAttendanceByParticipant']);
+    Route::get('events/{eventSlug}/participants', [AttendanceController::class, 'getParticipantsByEvent']);
+
+    // Prices
+    Route::get('events/{eventSlug}/prices', [PriceController::class, 'getPricesByEvent']);
+    Route::get('events/{eventSlug}/prices-today', [PriceController::class, 'getTodayPricesByEvent']);
 
 
     // Temporary routes without access token
