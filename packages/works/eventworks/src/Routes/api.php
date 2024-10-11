@@ -10,8 +10,7 @@ use Works\Eventworks\Controllers\Api\MediaController;
 use Works\Eventworks\Controllers\Api\EventLinkController;
 use Works\Eventworks\Controllers\Api\CycleController;
 use Works\Eventworks\Controllers\Api\EventController;
-
-
+use Works\Eventworks\Controllers\Api\ProgramController;
 
 
 Route::group(['prefix' => 'api/v1/events'], function () {
@@ -68,6 +67,12 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('/events/range/{start_date}/{end_date}', [EventController::class, 'filterByRange']);
 
     Route::get('/events/search', [EventController::class, 'search']);
+
+    // Programs
+    Route::get('programs/{eventSlug}', [ProgramController::class, 'getProgramByEvent']);
+    Route::get('programs/{eventSlug}/activities/{activitySlug}', [ProgramController::class, 'getActivityByName']);
+    Route::get('programs/{eventSlug}/day/{day}', [ProgramController::class, 'getProgramByDay']);
+
 
     // Temporary routes without access token
     Route::get('events/participants', [ParticipantController::class, 'index']);

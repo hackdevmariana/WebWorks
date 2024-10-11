@@ -3,7 +3,7 @@
 namespace Works\Eventworks\Controllers\Api;
 
 use Works\Eventworks\Models\Participant;
-// use Works\Eventworks\Models\Event;
+use Works\Eventworks\Models\Event;
 use Illuminate\Http\JsonResponse;
 
 class ParticipantController
