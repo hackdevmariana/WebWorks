@@ -44,4 +44,11 @@ class Participant extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
+    }
 }
+
+
