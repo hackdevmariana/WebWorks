@@ -18,4 +18,3 @@ class EventUser extends Model
         return $this->hasMany(Message::class, 'receiver');
     }
 }
-
