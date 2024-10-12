@@ -10,16 +10,22 @@ class Speaker extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_speaker');
     }
+
 
     public function links()
     {
-        return $this->belongsToMany(Link::class);
+        return $this->belongsToMany(EventLink::class);
     }
 
     public function media()
     {
         return $this->belongsToMany(Media::class);
+    }
+
+    public function activities()
+    {
+        return $this->belongsToMany(Activity::class, 'activity_speaker');
     }
 }

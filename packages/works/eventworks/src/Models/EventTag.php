@@ -8,11 +8,11 @@ class EventTag extends Model
 {
     protected $fillable = ['name', 'slug'];
 
-    // Relaciones con otros modelos
     public function participants()
     {
         return $this->belongsToMany(Participant::class, 'event_tag_participant');
     }
+
 
     public function activities()
     {

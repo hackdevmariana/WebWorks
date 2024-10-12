@@ -8,7 +8,11 @@ use Illuminate\Support\Str;
 class Media extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'description', 'url', 'alt'
+        'name',
+        'slug',
+        'description',
+        'url',
+        'alt'
     ];
 
     protected static function boot()
@@ -16,37 +20,34 @@ class Media extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->slug = Str::slug($model->name); 
+            $model->slug = Str::slug($model->name);
         });
     }
 
-    // Relación con Cycle
     public function cycle()
     {
         return $this->belongsTo(Cycle::class);
     }
 
-    // Relación con Event
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
 
-    // Relación con Organizer
-    public function organizer()
+    public function organizers()
     {
-        return $this->belongsTo(Organizer::class);
+        return $this->belongsToMany(Organizer::class, 'organizer_media');
     }
 
-    // Relación con Speaker
+
     public function speaker()
     {
         return $this->belongsTo(Speaker::class);
     }
 
-    // Relación con Location
-    public function location()
+    public function locations()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsToMany(Location::class, 'location_media');
     }
+
 }

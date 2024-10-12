@@ -8,24 +8,27 @@ class EventCategory extends Model
 {
     protected $fillable = ['name', 'slug'];
 
-    // Definición de las relaciones Muchos a Muchos
     public function participants()
     {
-        return $this->belongsToMany(Participant::class);
+        return $this->belongsToMany(Participant::class, 'event_category_participant');
     }
+
 
     public function activities()
     {
-        return $this->belongsToMany(Activity::class);
+        return $this->belongsToMany(Activity::class, 'event_category_activity');
     }
+
 
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_category_event');
     }
+
 
     public function organizers()
     {
-        return $this->belongsToMany(Organizer::class);
+        return $this->belongsToMany(Organizer::class, 'event_category_organizer');
     }
+
 }

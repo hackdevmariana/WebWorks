@@ -21,33 +21,30 @@ class EventLink extends Model
         });
     }
 
-    // Relación de pertenencia con Cycle
     public function cycle()
     {
         return $this->belongsTo(Cycle::class);
     }
 
-    // Relación de pertenencia con Event
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
 
-    // Relación de pertenencia con Organizer
-    public function organizer()
+    public function organizers()
     {
-        return $this->belongsTo(Organizer::class);
+        return $this->belongsToMany(Organizer::class, 'organizer_link');
     }
 
-    // Relación de pertenencia con Speaker
+
     public function speaker()
     {
         return $this->belongsTo(Speaker::class);
     }
 
-    // Relación de pertenencia con Location
-    public function location()
+    public function locations()
     {
-        return $this->belongsTo(Location::class);
+        return $this->belongsToMany(Location::class, 'location_link');
     }
+
 }

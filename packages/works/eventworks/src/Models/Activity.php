@@ -15,7 +15,12 @@ class Activity extends Model
 
     public function speakers()
     {
-        return $this->belongsToMany(Speaker::class);
+        return $this->belongsToMany(Speaker::class, 'activity_speaker');
     }
-}
 
+    public function categories()
+    {
+        return $this->belongsToMany(EventCategory::class, 'event_category_activity');
+    }
+
+}

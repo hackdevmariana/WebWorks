@@ -14,21 +14,21 @@ class City extends Model
         return $this->belongsTo(Country::class);
     }
 
-    // Relación: Muchas a muchas con Participant
     public function participants()
     {
-        return $this->belongsToMany(Participant::class);
+        return $this->belongsToMany(Participant::class, 'city_participant');
     }
+
 
     // Relación: Muchas a muchas con Event
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'city_event');
     }
 
-    // Relación: Muchas a muchas con Organizer
     public function organizers()
     {
-        return $this->belongsToMany(Organizer::class);
+        return $this->belongsToMany(Organizer::class, 'city_organizer');
     }
+    
 }

@@ -8,39 +8,40 @@ class Organizer extends Model
 {
     protected $fillable = ['name', 'slug', 'phone', 'email'];
 
-    // Relación Muchos a Muchos con Tag
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(EventTag::class, 'event_tag_organizer');
     }
 
-    // Relación Muchos a Muchos con City
+
     public function cities()
     {
-        return $this->belongsToMany(City::class);
+        return $this->belongsToMany(City::class, 'city_organizer');
     }
 
-    // Relación Muchos a Muchos con Category
+
+
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(EventCategory::class, 'event_category_organizer');
     }
 
-    // Relación Muchos a Muchos con Event
+
     public function events()
     {
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'organizer_event');
     }
 
-    // Relación Muchos a Muchos con Link
+
     public function links()
     {
-        return $this->belongsToMany(Link::class);
+        return $this->belongsToMany(EventLink::class, 'organizer_link');
     }
 
-    // Relación Muchos a Muchos con Media
+
     public function media()
     {
-        return $this->belongsToMany(Media::class);
+        return $this->belongsToMany(Media::class, 'organizer_media');
     }
+
 }

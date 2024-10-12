@@ -10,30 +10,32 @@ class Participant extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'surname', 
-        'username', 
-        'email', 
-        'interests', 
-        'cities', 
+        'name',
+        'surname',
+        'username',
+        'email',
+        'interests',
+        'cities',
         'country_id',
     ];
 
-    // Relaciones
     public function tags()
     {
-        return $this->belongsToMany(EventTag::class, 'participant_tag');
+        return $this->belongsToMany(EventTag::class, 'event_tag_participant');
     }
+
 
     public function cities()
     {
         return $this->belongsToMany(City::class, 'city_participant');
     }
 
+
     public function categories()
     {
-        return $this->belongsToMany(EventCategory::class, 'participant_category');
+        return $this->belongsToMany(EventCategory::class, 'event_category_participant');
     }
+
 
     public function events()
     {
