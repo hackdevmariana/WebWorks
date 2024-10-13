@@ -214,10 +214,15 @@ class EventController extends Controller
 
     // Filtrar eventos por rango de fechas
     public function filterByRange($start_date, $end_date)
-    {
-        $events = Event::whereBetween('days', [$start_date, $end_date])->orderBy('days')->get();
-        return response()->json($events);
-    }
+{
+    // Buscar eventos que tengan actividades entre el rango de fechas dado
+    $events = Event::whereHas('activities', function ($query) use ($start_date, $end_date) {
+        $query->whereBetween('date', [$start_date, $end_date]);
+    })->orderBy('days')->get();
+
+    return response()->json($events);
+}
+
 
     // Endpoint de búsqueda general
     public function search(Request $request)
