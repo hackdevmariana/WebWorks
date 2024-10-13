@@ -24,6 +24,21 @@ class Event extends Model
         'cycle_id'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($event) {
+            if (empty($event->days)) {
+                $event->days = 1;
+            }
+            if (empty($event->type)) {
+                $event->type = 'presencial'; // Establecer un valor por defecto, por ejemplo, 'presencial'
+            }
+        });
+    }
+
+
     public function cycle()
     {
         return $this->belongsTo(Cycle::class)->nullable();
@@ -81,6 +96,11 @@ class Event extends Model
     {
         return $this->belongsToMany(Participant::class, 'event_participant');
     }
-    
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
 }
 

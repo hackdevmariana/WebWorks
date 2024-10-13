@@ -2,6 +2,8 @@
 namespace Works\Eventworks\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class Location extends Model
 {
@@ -15,6 +17,15 @@ class Location extends Model
         'phone'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = Str::slug($model->name);
+        });
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -27,8 +38,9 @@ class Location extends Model
 
     public function events()
     {
-        return $this->belongsToMany(Event::class, 'event_location');
+        return $this->belongsToMany(Event::class, 'event_location', 'location_id', 'event_id');
     }
+
 
 
     public function links()

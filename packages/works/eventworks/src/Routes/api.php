@@ -17,18 +17,14 @@ use Works\Eventworks\Controllers\Api\PriceController;
 use Works\Eventworks\Controllers\Api\MessageController;
 use Works\Eventworks\Controllers\Api\PreregistrationController;
 
-
-
-
-
 Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('eventworks-test', function () {
         return response()->json(['message' => 'Congratulations! EventWorks is up and running!']);
     });
-    Route::get('events/tags', [EventTagController::class, 'index']);
-    Route::get('events/categories', [EventCategoryController::class, 'index']);
-    Route::get('/organizers', [OrganizerController::class, 'index']); 
-    Route::get('/organizers/{organizerSlug}', [OrganizerController::class, 'show']);
+    Route::get('tags', [EventTagController::class, 'index']);
+    Route::get('categories', [EventCategoryController::class, 'index']);
+    Route::get('organizers', [OrganizerController::class, 'index']); 
+    Route::get('organizers/{organizerSlug}', [OrganizerController::class, 'show']);
 
     // Locations
     Route::get('locations', [LocationController::class, 'index']);
@@ -47,7 +43,7 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     Route::get('cycles/{cycleName}', [CycleController::class, 'show']);
 
     // Events 
-    Route::get('/events/cycles', [EventController::class, 'getCycles']);
+    Route::get('events', [EventController::class, 'getCycles']);
 
     Route::prefix('events/{slug}')->group(function () {
         Route::get('/', [EventController::class, 'show']);
@@ -60,15 +56,18 @@ Route::group(['prefix' => 'api/v1/events'], function () {
         Route::get('/apple-calendar', [EventController::class, 'downloadAppleCalendar']);
     });
 
-    Route::get('/events/{country}/{city}', [EventController::class, 'getByLocation']);
-    Route::get('/events/{organizer}', [EventController::class, 'getByOrganizer']);
-    Route::get('/events/{year}', [EventController::class, 'getByYear']);
-    Route::get('/events/{year}/{month}', [EventController::class, 'getByMonth']);
-    Route::get('/events/{year}/{month}/{day}', [EventController::class, 'getByDay']);
+    Route::get('/country/{country}/', [EventController::class, 'getByCountry']);
+    Route::get('/city/{country}/{city}', [EventController::class, 'getByLocation']);
+    Route::get('/organizer/{organizer}', [EventController::class, 'getByOrganizer']);
+
+    Route::get('/date/{year}', [EventController::class, 'getByYear']);
+    Route::get('/date/{year}/{month}', [EventController::class, 'getByMonth']);
+    Route::get('/date/{year}/{month}/{day}', [EventController::class, 'getByDay']);
     
-    Route::get('/events/tags/{tag1}/{tag2?}', [EventController::class, 'getByTags']);
+    Route::get('tags/{tag1}/{tag2?}', [EventController::class, 'getByTags']);
     
-    Route::get('/events/type/{type}', [EventController::class, 'getByType']);
+    Route::get('type/{type?}', [EventController::class, 'getByType']);
+
     Route::get('/events/category/{category}', [EventController::class, 'getByCategory']);
     Route::get('/events/location/{country}/{city}', [EventController::class, 'filterByLocation']);
     Route::get('/events/date/{year}/{month}', [EventController::class, 'filterByDate']);

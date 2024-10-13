@@ -3,10 +3,20 @@
 namespace Works\Eventworks\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
+
 
 class City extends Model
 {
     protected $fillable = ['name', 'slug', 'country_id'];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = Str::slug($model->name); 
+        });
+    }
 
     // Relación: Una ciudad pertenece a un país
     public function country()

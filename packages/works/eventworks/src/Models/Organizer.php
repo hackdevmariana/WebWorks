@@ -3,10 +3,20 @@
 namespace Works\Eventworks\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Organizer extends Model
 {
     protected $fillable = ['name', 'slug', 'phone', 'email'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->slug = Str::slug($model->name); 
+        });
+    }
 
     public function tags()
     {
