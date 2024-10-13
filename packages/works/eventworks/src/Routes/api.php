@@ -68,7 +68,8 @@ Route::group(['prefix' => 'api/v1/events'], function () {
     
     Route::get('type/{type?}', [EventController::class, 'getByType']);
 
-    Route::get('/events/category/{category}', [EventController::class, 'getByCategory']);
+    Route::get('category/{category?}', [EventController::class, 'getByCategory']);
+    
     Route::get('/events/location/{country}/{city}', [EventController::class, 'filterByLocation']);
     Route::get('/events/date/{year}/{month}', [EventController::class, 'filterByDate']);
     Route::get('/events/range/{start_date}/{end_date}', [EventController::class, 'filterByRange']);

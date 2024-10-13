@@ -4,6 +4,7 @@ namespace Works\Eventworks\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Works\Eventworks\Models\Event;
+use Works\Eventworks\Models\EventCategory;
 use Works\Eventworks\Models\City;
 use Works\Eventworks\Models\Location;
 
@@ -173,11 +174,19 @@ class EventController extends Controller
 
 
     // Mostrar eventos por categoría
-    public function getByCategory($category)
-    {
-        $events = Event::where('category', $category)->orderBy('days')->get();
+    public function getByCategory($category = null)
+{
+    if ($category === null) {
+        // Devuelve todas las categorías si no se pasa una categoría específica
+        $categories = EventCategory::select('name', 'slug')->distinct()->get();
+        return response()->json($categories);
+    } else {
+        // Busca eventos por categoría si se pasa un nombre de categoría
+        $events = EventCategory::where('name', $category)->firstOrFail()->events()->orderBy('days')->get();
         return response()->json($events);
     }
+}
+
 
     // Filtrar eventos por etiquetas
     public function filterByTags(...$tags)
