@@ -19,5 +19,19 @@ class Scholarships extends Model
         'type_scholarship',
     ];
 
-    // Si necesitas definir relaciones, hazlo aquí
+    public function candidate()
+    {
+        return $this->belongsTo(UserScholarships::class, 'candidate');
+    }
+
+    public function benefactor()
+    {
+        return $this->belongsTo(UserScholarships::class, 'benefactor');
+    }
+
+    public function typeScholarship()
+    {
+        return $this->belongsTo(TypeScholarship::class, 'type_scholarship');
+    }
+
 }

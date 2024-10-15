@@ -17,11 +17,23 @@ class TypeScholarship extends Model
         'price',
         'place_of_origin',
         'books_to_buy',
-        'id_user_candidate',   
-        'id_user_benefactor',  
+        'id_user_candidate',
+        'id_user_benefactor',
     ];
 
     protected $casts = [
         'books_to_buy' => 'json',
     ];
+
+
+    public function candidate()
+    {
+        return $this->belongsTo(UserScholarships::class, 'id_user_candidate');
+    }
+
+    public function benefactor()
+    {
+        return $this->belongsTo(UserScholarships::class, 'id_user_benefactor');
+    }
+
 }
