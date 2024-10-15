@@ -2,13 +2,7 @@
 
 use Works\Dictionaryworks\Controllers\DictionaryTermController;
 use Works\Dictionaryworks\Controllers\DictionarySubjectController;
-
-Route::prefix('api/v1')->group(function () {
-    Route::get('/list/subjects', [DictionarySubjectController::class, 'index']);
-    Route::get('/subjects/{subject}/populars', [DictionarySubjectController::class, 'populars']);
-    Route::get('/subjects/{subject}/latest', [DictionarySubjectController::class, 'latest']);
-});
-
+use Works\Dictionaryworks\Controllers\DictionaryCategoryController;
 
 
 Route::prefix('api/v1/terms')->group(function () {
@@ -19,7 +13,17 @@ Route::prefix('api/v1/terms')->group(function () {
     Route::get('/initial/{letter}', [DictionaryTermController::class, 'getByInitial']);
     Route::get('/populars', [DictionaryTermController::class, 'populars']);
     Route::get('/latest', [DictionaryTermController::class, 'latest']);
-    
+
+    // Subject, category and tag
+    Route::get('/list/subjects', [DictionarySubjectController::class, 'index']);
+    Route::get('/subjects/{subject}/populars', [DictionarySubjectController::class, 'populars']);
+    Route::get('/subjects/{subject}/latest', [DictionarySubjectController::class, 'latest']);
+    Route::get('/list/category', [DictionaryCategoryController::class, 'index']);
+    Route::get('/category/{category}/populars', [DictionaryCategoryController::class, 'populars']);
+    Route::get('/category/{category}/latest', [DictionaryCategoryController::class, 'latest']);
+    Route::get('/terms/category/{category}', [DictionaryCategoryController::class, 'termsByCategory']);
+
+
     // Las rutas que usan `{term}` deben ir al final
     Route::get('definition/{term}', [DictionaryTermController::class, 'show']);
     Route::get('definition/{term}/synonyms', [DictionaryTermController::class, 'synonyms']);
