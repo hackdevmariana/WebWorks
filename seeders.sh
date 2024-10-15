@@ -1,6 +1,3 @@
 #!/bin/bash
 
-# php artisan db:seed --class="Works\Dictionaryworks\Seeders\DictionaryTermSeeder"
-# php artisan db:seed --class="Works\Dictionaryworks\Seeders\DictionarySubjectSeeder"
-# php artisan db:seed --class="Works\Dictionaryworks\Seeders\DictionaryCategorySeeder"
-php artisan db:seed --class="Works\Dictionaryworks\Seeders\DictionaryTagSeeder"
+php artisan db:seed --class="Works\Scholarshipsworks\Seeders\UserScholarshipsSeeder"
