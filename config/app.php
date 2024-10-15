@@ -171,6 +171,8 @@ return [
         Works\Webworks\Providers\WebworksServiceProvider::class,
         Works\Eventworks\EventworksServiceProvider::class,
         Works\Dictionaryworks\DictionaryWorksServiceProvider::class,
+        Works\Scholarshipsworks\ScholarshipsWorksServiceProvider::class,
+
         
         
 

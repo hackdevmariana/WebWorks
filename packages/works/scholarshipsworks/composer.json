@@ -1,0 +1,16 @@
+{
+    "name": "works/scholarshipsworks",
+    "description": "Scholarship module",
+    "autoload": {
+        "psr-4": {
+            "Works\\Scholarshipsworks\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Works\\Scholarshipsworks\\ScholarshipsWorksServiceProvider"
+            ]
+        }
+    }
+}
