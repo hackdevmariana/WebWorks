@@ -25,7 +25,7 @@ class WebworksServiceProvider extends ServiceProvider
     public function boot()
     {
         // Cargar rutas
-        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+        //$this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
         $this->loadRoutesFrom(__DIR__.'/../Routes/api.php');  // <---- Añadir esta línea
 
 

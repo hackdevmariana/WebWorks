@@ -11,7 +11,8 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "tcg/voyager": "^1.7"
+        "tcg/voyager": "^1.7",
+        "works/dictionaryworks": "@dev"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -26,6 +27,7 @@
         "psr-4": {
             "Works\\Webworks\\": "packages/works/webworks/src/",
             "Works\\Eventworks\\": "packages/works/eventworks/src/",
+            "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
@@ -35,6 +37,8 @@
         "psr-4": {
             "Works\\Webworks\\": "packages/works/webworks/src/",
             "Works\\Eventworks\\": "packages/works/eventworks/src/",
+            "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
+
             "Tests\\": "tests/"
         }
     },
@@ -67,6 +71,14 @@
             "php-http/discovery": true
         }
     },
+
+    "repositories": [
+    {
+        "type": "path",
+        "url": "./packages/works/dictionaryworks"
+    }
+],
+
     "minimum-stability": "stable",
     "prefer-stable": true
 }

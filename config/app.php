@@ -170,6 +170,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         Works\Webworks\Providers\WebworksServiceProvider::class,
         Works\Eventworks\EventworksServiceProvider::class,
+        Works\Dictionaryworks\DictionaryWorksServiceProvider::class,
+        
+        
+
     ])->toArray(),
 
     /*

@@ -1,0 +1,11 @@
+{
+    "name": "works/dictionaryworks",
+    "description": "Dictionary Works Package",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Works\\Dictionaryworks\\": "src/"
+        }
+    },
+    "require": {}
+}
