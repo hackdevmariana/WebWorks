@@ -3,6 +3,8 @@
 use Works\Dictionaryworks\Controllers\DictionaryTermController;
 use Works\Dictionaryworks\Controllers\DictionarySubjectController;
 use Works\Dictionaryworks\Controllers\DictionaryCategoryController;
+use Works\Dictionaryworks\Controllers\DictionaryTagController;
+
 
 
 Route::prefix('api/v1/terms')->group(function () {
@@ -22,6 +24,10 @@ Route::prefix('api/v1/terms')->group(function () {
     Route::get('/category/{category}/populars', [DictionaryCategoryController::class, 'populars']);
     Route::get('/category/{category}/latest', [DictionaryCategoryController::class, 'latest']);
     Route::get('/terms/category/{category}', [DictionaryCategoryController::class, 'termsByCategory']);
+    Route::get('/list/tags', [DictionaryTagController::class, 'index']);
+    Route::get('/tags/{tag}/populars', [DictionaryTagController::class, 'populars']);
+    Route::get('/tags/{tag}/latest', [DictionaryTagController::class, 'latest']);
+    Route::get('/terms/tags/{tag}', [DictionaryTagController::class, 'termsByTag']);
 
 
     // Las rutas que usan `{term}` deben ir al final
