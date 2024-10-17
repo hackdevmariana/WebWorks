@@ -30,6 +30,16 @@ class QuoteBook extends Model
         'views',
     ];
 
+    public function comments()
+    {
+        return $this->morphMany(QuoteComment::class, 'commentable');
+    }
+    public function reviews()
+    {
+        return $this->morphMany(QuoteReview::class, 'reviewable');
+    }
+
+
     // Definir las relaciones cuando se agreguen los modelos correspondientes
     // public function collections() { return $this->belongsToMany(QuoteCollection::class); }
     // public function authors() { return $this->belongsToMany(QuoteAuthor::class); }

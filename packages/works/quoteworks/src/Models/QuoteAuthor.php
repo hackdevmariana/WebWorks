@@ -41,4 +41,15 @@ class QuoteAuthor extends Model
     {
         return $this->belongsToMany(QuoteCollaboration::class, 'quote_author_quote_collaboration');
     }
+
+    public function comments()
+    {
+        return $this->morphMany(QuoteComment::class, 'commentable');
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(QuoteReview::class, 'reviewable');
+    }
+    
 }

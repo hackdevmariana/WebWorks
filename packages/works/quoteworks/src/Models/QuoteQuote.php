@@ -23,7 +23,6 @@ class QuoteQuote extends Model
         return $this->belongsTo(QuoteAuthor::class, 'author_id')->withDefault(); // Con relación opcional
     }
 
-    // Relación opcional con QuoteBook
     public function book()
     {
         return $this->belongsTo(QuoteBook::class, 'id_book')->withDefault(); // Con relación opcional
@@ -34,4 +33,14 @@ class QuoteQuote extends Model
     {
         return $this->belongsTo(QuoteLink::class, 'id_link')->withDefault(); // Con relación opcional
     }
+
+    public function comments()
+    {
+        return $this->morphMany(QuoteComment::class, 'commentable');
+    }
+    public function reviews()
+    {
+        return $this->morphMany(QuoteReview::class, 'reviewable');
+    }
+    
 }
