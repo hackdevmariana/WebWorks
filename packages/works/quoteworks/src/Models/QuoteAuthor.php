@@ -36,4 +36,9 @@ class QuoteAuthor extends Model
     {
         return $this->belongsToMany(QuoteMedia::class, 'quote_author_quote_media', 'quote_author_id', 'quote_media_id');
     }
+
+    public function collaborations()
+    {
+        return $this->belongsToMany(QuoteCollaboration::class, 'quote_author_quote_collaboration');
+    }
 }
