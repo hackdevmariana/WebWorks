@@ -172,6 +172,7 @@ return [
         Works\Eventworks\EventworksServiceProvider::class,
         Works\Dictionaryworks\DictionaryWorksServiceProvider::class,
         Works\Scholarshipsworks\ScholarshipsWorksServiceProvider::class,
+        Works\Quoteworks\QuoteWorksServiceProvider::class,
 
         
         

@@ -9,7 +9,7 @@ class ScholarshipsFollowUp extends Model
 {
     use HasFactory;
 
-    protected $table = 'follow_ups';
+    protected $table = 'scholarships_follow_ups';
 
     protected $fillable = [
         'title',

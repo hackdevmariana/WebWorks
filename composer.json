@@ -29,6 +29,7 @@
             "Works\\Eventworks\\": "packages/works/eventworks/src/",
             "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
+            "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
@@ -40,6 +41,8 @@
             "Works\\Eventworks\\": "packages/works/eventworks/src/",
             "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
+            "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
+
 
 
             "Tests\\": "tests/"
