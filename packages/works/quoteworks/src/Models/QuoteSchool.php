@@ -24,14 +24,17 @@ class QuoteSchool extends Model
     }
 
     // Relación many-to-many con QuoteAuthors
+    // Relación many-to-many con QuoteAuthors
     public function authors()
     {
         return $this->belongsToMany(QuoteAuthor::class, 'author_schools', 'school_id', 'author_id');
     }
+
 
     // Relación many-to-many con QuoteBooks
     public function books()
     {
         return $this->belongsToMany(QuoteBook::class, 'book_schools', 'school_id', 'book_id');
     }
+
 }

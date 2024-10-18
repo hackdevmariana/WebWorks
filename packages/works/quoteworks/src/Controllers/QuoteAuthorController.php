@@ -81,4 +81,17 @@ class QuoteAuthorController extends Controller
         $author = QuoteAuthor::where('slug', $slug)->firstOrFail();
         return response()->json($author->school);
     }
+
+
+
+
+
+    public function relations($slug)
+    {
+        $author = QuoteAuthor::where('slug', $slug)->firstOrFail();
+        return response()->json($author->relations);
+    }
+
+
+
 }

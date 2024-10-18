@@ -26,10 +26,17 @@ class QuoteAuthor extends Model
     ];
 
     // Relación muchos a muchos con QuoteBook
-    public function books(): BelongsToMany
+    public function books()
     {
-        return $this->belongsToMany(QuoteBook::class, 'quote_author_quote_books', 'quote_author_id', 'quote_book_id');
+        return $this->belongsToMany(QuoteBook::class, 'quote_author_quote_books');
     }
+
+    // Relación many-to-many con QuoteSchool
+    public function schools()
+    {
+        return $this->belongsToMany(QuoteSchool::class, 'author_schools', 'author_id', 'school_id');
+    }
+
 
     // Relación muchos a muchos con QuoteMedia
     public function media(): BelongsToMany
@@ -51,5 +58,5 @@ class QuoteAuthor extends Model
     {
         return $this->morphMany(QuoteReview::class, 'reviewable');
     }
-    
+
 }

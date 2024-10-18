@@ -4,6 +4,7 @@ namespace Works\Quoteworks\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class QuoteQuote extends Model
 {
@@ -16,23 +17,29 @@ class QuoteQuote extends Model
         'id_link',
         'author_id',
     ];
+    protected static function boot()
+    {
+        parent::boot();
 
-    // Relación opcional con QuoteAuthor
+        static::creating(function ($quote) {
+            $quote->slug = Str::slug(Str::limit($quote->quote, 50));
+        });
+    }
     public function author()
     {
-        return $this->belongsTo(QuoteAuthor::class, 'author_id')->withDefault(); // Con relación opcional
+        return $this->belongsTo(QuoteAuthor::class, 'author_id')->withDefault(['name' => 'Unknown']); // Con relación opcional y valor por defecto
     }
-
+    
     public function book()
     {
-        return $this->belongsTo(QuoteBook::class, 'id_book')->withDefault(); // Con relación opcional
+        return $this->belongsTo(QuoteBook::class, 'id_book')->withDefault(['title_in_spanish' => 'Unknown']); // Relación opcional con valor por defecto
     }
-
-    // Relación opcional con QuoteLink
+    
     public function link()
     {
-        return $this->belongsTo(QuoteLink::class, 'id_link')->withDefault(); // Con relación opcional
+        return $this->belongsTo(QuoteLink::class, 'id_link')->withDefault(['url' => null]); // Relación opcional
     }
+    
 
     public function comments()
     {

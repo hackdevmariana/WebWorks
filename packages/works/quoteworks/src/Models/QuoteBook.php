@@ -39,9 +39,25 @@ class QuoteBook extends Model
         return $this->morphMany(QuoteReview::class, 'reviewable');
     }
 
+    // Relación many-to-many con QuoteSchools
+    public function schools()
+    {
+        return $this->belongsToMany(QuoteSchool::class, 'book_schools', 'book_id', 'school_id');
+    }
 
-    // Definir las relaciones cuando se agreguen los modelos correspondientes
-    // public function collections() { return $this->belongsToMany(QuoteCollection::class); }
-    // public function authors() { return $this->belongsToMany(QuoteAuthor::class); }
-    // public function media() { return $this->belongsToMany(QuoteMedia::class); }
+ 
+    public function collections() 
+    { 
+        return $this->belongsToMany(QuoteCollection::class); 
+    }
+    
+    public function authors()
+    {
+        return $this->belongsToMany(QuoteAuthor::class, 'quote_author_quote_books');
+    }
+    
+    public function media() 
+    { 
+        return $this->belongsToMany(QuoteMedia::class); 
+    }
 }

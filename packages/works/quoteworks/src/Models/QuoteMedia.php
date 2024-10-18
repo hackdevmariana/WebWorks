@@ -19,8 +19,9 @@ class QuoteMedia extends Model
 
     public function authors()
     {
-        return $this->belongsToMany(QuoteAuthor::class, 'author_media', 'media_id', 'author_id');
+        return $this->belongsToMany(QuoteAuthor::class, 'quote_author_quote_media', 'quote_media_id', 'quote_author_id');
     }
+
 
     public function books()
     {
