@@ -27,17 +27,17 @@ class QuoteQuote extends Model
     }
     public function author()
     {
-        return $this->belongsTo(QuoteAuthor::class, 'author_id')->withDefault(['name' => 'Unknown']); // Con relación opcional y valor por defecto
+        return $this->belongsTo(QuoteAuthor::class, 'author_id')->withDefault(['name' => 'Unknown']); 
     }
     
     public function book()
     {
-        return $this->belongsTo(QuoteBook::class, 'id_book')->withDefault(['title_in_spanish' => 'Unknown']); // Relación opcional con valor por defecto
+        return $this->belongsTo(QuoteBook::class, 'id_book')->withDefault(['title_in_spanish' => 'Unknown']);
     }
     
     public function link()
     {
-        return $this->belongsTo(QuoteLink::class, 'id_link')->withDefault(['url' => null]); // Relación opcional
+        return $this->belongsTo(QuoteLink::class, 'id_link')->withDefault(['url' => null]); 
     }
     
 

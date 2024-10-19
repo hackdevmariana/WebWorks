@@ -24,9 +24,9 @@ Route::prefix('api/v1/quotes')->group(function () {
     Route::get('quote/', [QuoteQuoteController::class, 'randomQuote']);
     Route::get('quote/author/{author}/', [QuoteQuoteController::class, 'randomQuoteByAuthor']);
     Route::get('quote/slug/{slug}', [QuoteQuoteController::class, 'show']);
-    Route::get('quotes/{author}/', [QuoteQuoteController::class, 'quotesByAuthor']);
-    Route::get('quotes/{tag}', [QuoteQuoteController::class, 'quotesByTag']);
-    Route::get('quotes/top', [QuoteQuoteController::class, 'topQuotes']);
+    Route::get('quotes/author/{author}/', [QuoteQuoteController::class, 'quotesByAuthor']);
+    Route::get('quotes/tags/{tag}', [QuoteQuoteController::class, 'quotesByTag']);
+    Route::get('top', [QuoteQuoteController::class, 'topQuotes']);
 
     Route::get('books/', [QuoteBookController::class, 'index']);
     Route::get('book/{book}', [QuoteBookController::class, 'show']);

@@ -92,6 +92,20 @@ class QuoteAuthorController extends Controller
         return response()->json($author->relations);
     }
 
+    public function topQuotes()
+    {
+        // Obtener las citas más vistas (aquí se limita a las top 10)
+        $topQuotes = QuoteQuote::orderBy('views', 'desc')->take(10)->get();
 
+        // Devolver las citas con sus respectivos autores y libros
+        return response()->json($topQuotes->map(function ($quote) {
+            return [
+                'quote' => $quote->quote,
+                'author' => $quote->author->name . ' ' . $quote->author->surname,
+                'book' => $quote->book->title_in_spanish,
+                'views' => $quote->views,
+            ];
+        }));
+    }
 
 }

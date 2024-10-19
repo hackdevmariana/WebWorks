@@ -45,19 +45,26 @@ class QuoteBook extends Model
         return $this->belongsToMany(QuoteSchool::class, 'book_schools', 'book_id', 'school_id');
     }
 
- 
-    public function collections() 
-    { 
-        return $this->belongsToMany(QuoteCollection::class); 
+
+    public function collections()
+    {
+        return $this->belongsToMany(QuoteCollection::class);
     }
-    
+
     public function authors()
     {
-        return $this->belongsToMany(QuoteAuthor::class, 'quote_author_quote_books');
+        return $this->belongsToMany(QuoteAuthor::class);
     }
     
-    public function media() 
-    { 
-        return $this->belongsToMany(QuoteMedia::class); 
+
+    public function media()
+    {
+        return $this->belongsToMany(QuoteMedia::class);
     }
+
+    public function quotes()
+    {
+        return $this->hasMany(QuoteQuote::class, 'id_book'); 
+    }
+
 }
