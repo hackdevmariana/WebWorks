@@ -34,6 +34,7 @@ Route::prefix('api/v1/quotes')->group(function () {
     Route::get('book/{book}/quote', [QuoteBookController::class, 'randomQuote']);
     Route::get('book/{book}/quotes', [QuoteBookController::class, 'quotes']);
 
+    Route::get('schools/', [QuoteSchoolController::class, 'index']);
     Route::get('school/{school}/', [QuoteSchoolController::class, 'show']);
     Route::get('school/{school}/authors', [QuoteSchoolController::class, 'authors']);
     Route::get('school/{school}/books', [QuoteSchoolController::class, 'books']);
