@@ -30,6 +30,7 @@
             "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
             "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
+            "Works\\Biolinkworks\\": "packages/works/biolinkworks/src/",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
@@ -42,6 +43,8 @@
             "Works\\DictionaryWorks\\": "packages/works/dictionaryworks/src/",
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
             "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
+            "Works\\Biolinkworks\\": "packages/works/biolinkworks/src/",
+
 
 
 
