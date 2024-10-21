@@ -174,7 +174,9 @@ return [
         Works\Scholarshipsworks\ScholarshipsWorksServiceProvider::class,
         Works\Quoteworks\QuoteWorksServiceProvider::class,
         Works\Biolinkworks\BiolinkWorksServiceProvider::class,
+        Works\Socialcontentworks\SocialcontentWorksServiceProvider::class,
         
+ 
         
 
     ])->toArray(),

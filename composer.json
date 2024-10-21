@@ -31,6 +31,9 @@
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
             "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
             "Works\\Biolinkworks\\": "packages/works/biolinkworks/src/",
+            "Works\\Socialcontentworks\\": "packages/works/socialcontentworks/src/",
+
+
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
@@ -44,6 +47,7 @@
             "Works\\Scholarshipsworks\\": "packages/works/scholarshipsworks/src/",
             "Works\\Quoteworks\\": "packages/works/quoteworks/src/",
             "Works\\Biolinkworks\\": "packages/works/biolinkworks/src/",
+            "Works\\Socialcontentworks\\": "packages/works/socialcontentworks/src/",
 
 
 
