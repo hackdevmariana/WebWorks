@@ -11,14 +11,14 @@ class BioUser extends Model
 
     // Los campos que son asignables en masa (mass-assignable)
     protected $fillable = [
-        'username', 
-        'name', 
-        'surname', 
-        'biography', 
-        'photo', 
-        'alt', 
-        'background', 
-        'calltoaction', 
+        'username',
+        'name',
+        'surname',
+        'biography',
+        'photo',
+        'alt',
+        'background',
+        'calltoaction',
         'views'
     ];
 
@@ -36,13 +36,18 @@ class BioUser extends Model
     // Relación con BioCategory (muchos a muchos)
     public function categories()
     {
-        return $this->belongsToMany(BioCategory::class);
+        return $this->belongsToMany(BioCategory::class, 'bio_category_user');
     }
+    public function subcategories()
+    {
+        return $this->belongsToMany(BioSubcategory::class, 'bio_subcategory_user');
+    }
+    
 
     // Relación con BioTag (muchos a muchos)
     public function tags()
     {
-        return $this->belongsToMany(BioTag::class);
+        return $this->belongsToMany(BioTag::class, 'bio_tag_user');
     }
 
     // Relación con BioTemporalText (uno a muchos)
