@@ -1,3 +1,3 @@
 #!/bin/bash
 
-php artisan db:seed --class="Works\Biolinkworks\Seeders\BioLinkSeeder"
+php artisan db:seed --class="Works\Socialcontentworks\Seeders\SocialContentSeeder"
