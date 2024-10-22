@@ -42,7 +42,7 @@ Route::prefix('api/v1/')->group(function () {
     Route::get('youtube/channel-id/{channelName}', [YouTubeController::class, 'getChannelIdByName']);
     
     // Obtener videos del canal por nombre
-    Route::get('/channel-videos/name/{channelName}', [YouTubeController::class, 'getChannelVideosByName']);
+    Route::get('youtube/channel/videos/{channelName}', [YouTubeController::class, 'getChannelVideosByName']);
     
     // Obtener el último video del canal por nombre
     Route::get('/last-video/name/{channelName}', [YouTubeController::class, 'getLastChannelVideoByName']);

@@ -17,10 +17,11 @@ class YouTubeController extends Controller
      * @return mixed
      */
 
-    protected function makeApiRequest($url, $params = [])
+    protected function makeApiRequest($endpoint, $params = [])
     {
         $apiKey = env('YOUTUBE_API_KEY');
-        $params['key'] = $apiKey; // Añade la clave API a los parámetros
+        $params['key'] = $apiKey; // Add the API key to the parameters
+        $url = self::YOUTUBE_API_BASE_URL . $endpoint; // Construct the full URL
         $response = Http::get($url, $params);
 
         return $this->handleApiResponse($response);
@@ -61,7 +62,7 @@ class YouTubeController extends Controller
     private function handleApiResponse($response)
     {
         if ($response->successful()) {
-            return $response->json();
+            return response()->json($response->json());
         }
 
         $error = match ($response->status()) {
@@ -155,94 +156,96 @@ class YouTubeController extends Controller
     }
 
     public function infoChannel($channel)
-{
-    $apiKey = env('YOUTUBE_API_KEY');
+    {
+        $apiKey = env('YOUTUBE_API_KEY');
 
-    // Realiza una búsqueda del canal para obtener el ID
-    $searchResponse = $this->makeApiRequest('https://www.googleapis.com/youtube/v3/search', [
-        'part' => 'snippet',
-        'q' => $channel,
-        'type' => 'channel',
-        'maxResults' => 1,
-        'key' => $apiKey
-    ]);
-
-    // Verifica la respuesta de búsqueda
-    if (isset($searchResponse['items'][0])) {
-        $channelId = $searchResponse['items'][0]['id']['channelId'];
-
-        // Usa el ID del canal para obtener la información detallada
-        $response = $this->makeApiRequest('https://www.googleapis.com/youtube/v3/channels', [
-            'part' => 'snippet,contentDetails,statistics,brandingSettings',
-            'id' => $channelId,
+        // Realiza una búsqueda del canal para obtener el ID
+        $searchResponse = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $channel,
+            'type' => 'channel',
+            'maxResults' => 1,
             'key' => $apiKey
         ]);
 
-        // Verifica la respuesta del canal
-        if (isset($response['items'][0])) {
-            $item = $response['items'][0];
+        // Verifica la respuesta de búsqueda
+        $searchData = $searchResponse->getData(true);
+        if (isset($searchData['items'][0])) {
+            $channelId = $searchData['items'][0]['id']['channelId'];
 
-            // Obtener la descripción completa
-            $description = $item['snippet']['description'] ?? 'N/A';
-
-            // Extraer enlaces de la descripción
-            $links = [];
-            preg_match_all('/https?:\/\/[^\s]+/', $description, $links);
-
-            // Opcional: Si la información de redes sociales está en la descripción,
-            // puedes extraerlas usando un método diferente, dependiendo del formato.
-            $socialLinks = $this->extractSocialLinks($description);
-
-            return response()->json([
-                'regionCode' => $response['regionCode'] ?? 'N/A',
-                'channelId' => $item['id'] ?? 'N/A',
-                'publishedAt' => $item['snippet']['publishedAt'] ?? 'N/A',
-                'title' => $item['snippet']['title'] ?? 'N/A',
-                'description' => $description, // Descripción completa
-                'localizedDescription' => $item['localized']['description'] ?? 'N/A',
-                'links' => $links[0] ?? [], // Enlaces encontrados
-                'socialLinks' => $socialLinks, // Enlaces a redes sociales
-                'thumbnails' => [
-                    'default' => $item['snippet']['thumbnails']['default']['url'] ?? 'N/A',
-                    'medium' => $item['snippet']['thumbnails']['medium']['url'] ?? 'N/A',
-                    'high' => $item['snippet']['thumbnails']['high']['url'] ?? 'N/A'
-                ],
-                'customUrl' => $item['snippet']['customUrl'] ?? 'N/A',
-                'country' => $item['snippet']['country'] ?? 'N/A',
-                'viewCount' => $item['statistics']['viewCount'] ?? 'N/A',
-                'subscriberCount' => $item['statistics']['subscriberCount'] ?? 'N/A',
-                'videoCount' => $item['statistics']['videoCount'] ?? 'N/A',
-                'relatedPlaylists' => $item['contentDetails']['relatedPlaylists'] ?? [],
-                'brandingSettings' => $item['brandingSettings'] ?? []
+            // Usa el ID del canal para obtener la información detallada
+            $response = $this->makeApiRequest('/channels', [
+                'part' => 'snippet,contentDetails,statistics,brandingSettings',
+                'id' => $channelId,
+                'key' => $apiKey
             ]);
+
+            // Verifica la respuesta del canal
+            $data = $response->getData(true);
+            if (isset($data['items'][0])) {
+                $item = $data['items'][0];
+
+                // Obtener la descripción completa
+                $description = $item['snippet']['description'] ?? 'N/A';
+
+                // Extraer enlaces de la descripción
+                $links = [];
+                preg_match_all('/https?:\/\/[^\s]+/', $description, $links);
+
+                // Opcional: Si la información de redes sociales está en la descripción,
+                // puedes extraerlas usando un método diferente, dependiendo del formato.
+                $socialLinks = $this->extractSocialLinks($description);
+
+                return response()->json([
+                    'regionCode' => $data['regionCode'] ?? 'N/A',
+                    'channelId' => $item['id'] ?? 'N/A',
+                    'publishedAt' => $item['snippet']['publishedAt'] ?? 'N/A',
+                    'title' => $item['snippet']['title'] ?? 'N/A',
+                    'description' => $description, // Descripción completa
+                    'localizedDescription' => $item['localized']['description'] ?? 'N/A',
+                    'links' => $links[0] ?? [], // Enlaces encontrados
+                    'socialLinks' => $socialLinks, // Enlaces a redes sociales
+                    'thumbnails' => [
+                        'default' => $item['snippet']['thumbnails']['default']['url'] ?? 'N/A',
+                        'medium' => $item['snippet']['thumbnails']['medium']['url'] ?? 'N/A',
+                        'high' => $item['snippet']['thumbnails']['high']['url'] ?? 'N/A'
+                    ],
+                    'customUrl' => $item['snippet']['customUrl'] ?? 'N/A',
+                    'country' => $item['snippet']['country'] ?? 'N/A',
+                    'viewCount' => $item['statistics']['viewCount'] ?? 'N/A',
+                    'subscriberCount' => $item['statistics']['subscriberCount'] ?? 'N/A',
+                    'videoCount' => $item['statistics']['videoCount'] ?? 'N/A',
+                    'relatedPlaylists' => $item['contentDetails']['relatedPlaylists'] ?? [],
+                    'brandingSettings' => $item['brandingSettings'] ?? []
+                ]);
+            } else {
+                return response()->json(['error' => 'Channel information not found'], 404);
+            }
         } else {
-            return response()->json(['error' => 'Channel information not found'], 404);
-        }
-    } else {
-        return response()->json(['error' => 'Channel not found'], 404);
-    }
-}
-
-private function extractSocialLinks($description)
-{
-    $socialLinks = [];
-
-    // Aquí puedes buscar enlaces que sean de redes sociales comunes
-    $socialPatterns = [
-        'twitter' => '/(https?:\/\/twitter\.com\/[^\s]+)/',
-        'facebook' => '/(https?:\/\/facebook\.com\/[^\s]+)/',
-        'instagram' => '/(https?:\/\/instagram\.com\/[^\s]+)/',
-        // Agrega más patrones según sea necesario
-    ];
-
-    foreach ($socialPatterns as $key => $pattern) {
-        if (preg_match($pattern, $description, $matches)) {
-            $socialLinks[$key] = $matches[0]; // Almacena el primer enlace encontrado para cada red social
+            return response()->json(['error' => 'Channel not found'], 404);
         }
     }
 
-    return $socialLinks;
-}
+    private function extractSocialLinks($description)
+    {
+        $socialLinks = [];
+
+        // Aquí puedes buscar enlaces que sean de redes sociales comunes
+        $socialPatterns = [
+            'twitter' => '/(https?:\/\/twitter\.com\/[^\s]+)/',
+            'facebook' => '/(https?:\/\/facebook\.com\/[^\s]+)/',
+            'instagram' => '/(https?:\/\/instagram\.com\/[^\s]+)/',
+            // Agrega más patrones según sea necesario
+        ];
+
+        foreach ($socialPatterns as $key => $pattern) {
+            if (preg_match($pattern, $description, $matches)) {
+                $socialLinks[$key] = $matches[0]; // Almacena el primer enlace encontrado para cada red social
+            }
+        }
+
+        return $socialLinks;
+    }
 
 
 
@@ -289,36 +292,48 @@ private function extractSocialLinks($description)
 
     public function getChannelIdByName($channelName)
     {
-        $response = $this->makeApiRequest('https://www.googleapis.com/youtube/v3/search', [
+        $response = $this->makeApiRequest('/search', [
             'part' => 'snippet',
             'q' => $channelName,
             'type' => 'channel',
             'maxResults' => 1,
             'key' => env('YOUTUBE_API_KEY') // Asegúrate de incluir la clave API
         ]);
-    
-        if (isset($response['items'][0]['id']['channelId'])) {
+
+        // Extraer los datos de la respuesta JSON
+        $responseData = $response->getData(true);
+
+        if (isset($responseData['items'][0]['id']['channelId'])) {
             // Devolver el channelId en formato JSON
             return response()->json([
-                'channelId' => $response['items'][0]['id']['channelId']
+                'channelId' => $responseData['items'][0]['id']['channelId']
             ]);
         } else {
             // Devolver un mensaje de error en formato JSON
             return response()->json(['error' => 'Channel not found'], 404);
         }
     }
-    
+
 
 
     public function getChannelVideosByName($channelName)
     {
-        $channelId = $this->getChannelIdByName($channelName);
-        if ($channelId) {
+        $response = $this->getChannelIdByName($channelName);
+
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            $responseData = $response->getData(true);
+
+            if (isset($responseData['error'])) {
+                return response()->json(['error' => 'Channel not found'], 404);
+            }
+
+            $channelId = $responseData['channelId'];
             return $this->getChannelVideos($channelId);
-        } else {
-            return response()->json(['error' => 'Channel not found'], 404);
         }
+
+        return response()->json(['error' => 'Unexpected response'], 500);
     }
+
 
 
 
@@ -341,11 +356,14 @@ private function extractSocialLinks($description)
             'maxResults' => 50,
         ]);
 
-        if (!isset($response['items'])) {
+        // Extraer los datos de la respuesta JSON
+        $responseData = $response->getData(true);
+
+        if (!isset($responseData['items'])) {
             return response()->json(['error' => 'No videos found'], 404);
         }
 
-        $videos = $this->processVideos($response['items'], $type, $limit);
+        $videos = $this->processVideos($responseData['items'], $type, $limit);
 
         return response()->json($videos);
     }
