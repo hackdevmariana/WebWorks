@@ -293,15 +293,21 @@ private function extractSocialLinks($description)
             'part' => 'snippet',
             'q' => $channelName,
             'type' => 'channel',
-            'maxResults' => 1
+            'maxResults' => 1,
+            'key' => env('YOUTUBE_API_KEY') // Asegúrate de incluir la clave API
         ]);
-
+    
         if (isset($response['items'][0]['id']['channelId'])) {
-            return $response['items'][0]['id']['channelId'];
+            // Devolver el channelId en formato JSON
+            return response()->json([
+                'channelId' => $response['items'][0]['id']['channelId']
+            ]);
         } else {
-            return null;
+            // Devolver un mensaje de error en formato JSON
+            return response()->json(['error' => 'Channel not found'], 404);
         }
     }
+    
 
 
     public function getChannelVideosByName($channelName)

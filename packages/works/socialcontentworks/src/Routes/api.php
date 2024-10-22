@@ -36,10 +36,10 @@ Route::prefix('api/v1/')->group(function () {
     Route::get('youtube/channel/{channel}', [YouTubeController::class, 'infoChannel']);
     
     // Obtener el ID del canal por nombre de usuario
-    Route::get('/channel-id/username/{username}', [YouTubeController::class, 'getChannelIdByUsername']);
+    Route::get('youtube/channel-id/username/{username}', [YouTubeController::class, 'getChannelIdByUsername']);
     
     // Obtener el ID del canal por nombre del canal
-    Route::get('/channel-id/{channelName}', [YouTubeController::class, 'getChannelIdByName']);
+    Route::get('youtube/channel-id/{channelName}', [YouTubeController::class, 'getChannelIdByName']);
     
     // Obtener videos del canal por nombre
     Route::get('/channel-videos/name/{channelName}', [YouTubeController::class, 'getChannelVideosByName']);
