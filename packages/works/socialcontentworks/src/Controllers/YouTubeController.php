@@ -599,14 +599,25 @@ class YouTubeController extends Controller
      * @param string $topic
      * @return \Illuminate\Http\JsonResponse
      */
-    public function searchVideosByTopic($topic)
+    public function searchVideosByTopic($topic, $order = 'relevance', $maxResults = 10, $duration = null, $type = 'video')
     {
-        return $this->makeApiRequest('https://www.googleapis.com/youtube/v3/search', [
+        // Configura los parámetros de búsqueda básicos
+        $params = [
             'part' => 'snippet',
             'q' => $topic,
-            'type' => 'video'
-        ]);
+            'type' => $type,
+            'order' => $order, // Añade el criterio de orden
+            'maxResults' => $maxResults // Define el número máximo de resultados
+        ];
+
+        // Añade el filtro de duración si se proporciona
+        if ($duration) {
+            $params['videoDuration'] = $duration; // 'short', 'medium', 'long'
+        }
+
+        return $this->makeApiRequest('/search', $params);
     }
+
 
     /**
      * Get videos from a playlist.
@@ -629,14 +640,255 @@ class YouTubeController extends Controller
      */
     public function getTrendingVideos($region = 'ES', $results = 10)
     {
-        return $this->makeApiRequest('/videos', [
+        $response =  $this->makeApiRequest('/videos', [
             'part' => 'snippet',
             'chart' => 'mostPopular',
             'regionCode' => $region,
             'maxResults' => $results
         ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
     }
 
+
+    public function searchVideosByRelevance($topic, $results = 10, $region = 'ES')
+    {
+        $response =  $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'relevance',
+            'type' => 'video',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+
+
+    public function searchVideosByDate($topic, $results = 10, $region = 'ES')
+    {
+        $response =  $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'date',
+            'type' => 'video',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+
+    public function searchVideosByViews($topic, $results = 10, $region = 'ES')
+    {
+        $response =  $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'video',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+
+    public function searchVideosByRating($topic, $results = 10, $region = 'ES')
+    {
+        $response =  $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'rating',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+    public function searchVideosByShort($topic, $results = 10, $region = 'ES')
+    {
+        $response = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'video',
+            'duration' => 'short',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+    
+        $videos = $responseData['items'] ?? [];
+    
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+    public function searchVideosByMedium($topic, $results = 10, $region = 'ES')
+    {
+        // Llamada a la API para obtener los vídeos relacionados con el tema
+        $response = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'video',
+            'duration' => 'medium',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+    
+        $responseData = json_decode($response->getContent(), true);
+    
+        $videos = $responseData['items'] ?? [];
+    
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+    
+    public function searchVideosByLong($topic, $results = 10, $region = 'ES')
+    {
+        $response = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'video',
+            'duration' => 'long',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+
+        $videos = $responseData['items'] ?? [];
+
+        foreach ($videos as &$video) {
+            if (isset($video['id']['videoId'])) {
+                $video['url'] = 'https://www.youtube.com/watch?v=' . $video['id']['videoId'];
+            }
+        }
+
+        return $videos;
+    }
+
+    public function searchVideosByChannel($topic, $results = 10, $region = 'ES')
+    {
+        // Llamada a la API para obtener los canales relacionados con el tema
+        $response = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'channel',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+
+        // Obtener el contenido de la respuesta y decodificarlo a un array
+        $responseData = json_decode($response->getContent(), true);
+
+        // Modificamos la respuesta para incluir la URL del canal
+        $channels = $responseData['items'] ?? [];
+
+        foreach ($channels as &$channel) {
+            if (isset($channel['id']['channelId'])) {
+                $channel['url'] = 'https://www.youtube.com/channel/' . $channel['id']['channelId'];
+            }
+        }
+
+        // Retornar la respuesta modificada con la URL del canal
+        return $channels;
+    }
+
+    public function searchVideosByPlaylist($topic, $results = 10, $region = 'ES')
+    {
+        // Llamada a la API para obtener las listas de reproducción relacionadas con el tema
+        $response = $this->makeApiRequest('/search', [
+            'part' => 'snippet',
+            'q' => $topic,
+            'order' => 'viewCount',
+            'type' => 'playlist',
+            'regionCode' => $region,
+            'maxResults' => $results
+        ]);
+    
+        // Obtener el contenido de la respuesta y decodificarlo a un array
+        $responseData = json_decode($response->getContent(), true);
+    
+        // Modificamos la respuesta para incluir la URL de la lista de reproducción
+        $playlists = $responseData['items'] ?? [];
+    
+        foreach ($playlists as &$playlist) {
+            if (isset($playlist['id']['playlistId'])) {
+                // Crear la URL de la lista de reproducción
+                $playlist['url'] = 'https://www.youtube.com/playlist?list=' . $playlist['id']['playlistId'];
+            }
+        }
+    
+        // Retornar la respuesta modificada con las URLs de las listas de reproducción
+        return $playlists;
+    }
+    
 
 
 
