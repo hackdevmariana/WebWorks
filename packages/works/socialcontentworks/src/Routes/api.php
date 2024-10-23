@@ -34,40 +34,48 @@ Route::prefix('api/v1/')->group(function () {
     // *******************  YouTube
 
     Route::get('youtube/channel/{channel}', [YouTubeController::class, 'infoChannel']);
-    
+
     // Obtener el ID del canal por nombre de usuario
     Route::get('youtube/channel-id/username/{username}', [YouTubeController::class, 'getChannelIdByUsername']);
-    
+
     // Obtener el ID del canal por nombre del canal
     Route::get('youtube/channel-id/{channelName}', [YouTubeController::class, 'getChannelIdByName']);
-    
+
     // Obtener videos del canal por nombre
     Route::get('youtube/videos/{channelName}', [YouTubeController::class, 'getChannelVideosByName']);
-    
+
     // Obtener el último video del canal por nombre
     Route::get('youtube/last-video/{channelName}', [YouTubeController::class, 'getLastChannelVideoByName']);
-    
+
     // Obtener los últimos N videos del canal por nombre
-    Route::get('youtube/last-videos/{channelName}/', [YouTubeController::class, 'getLastsChannelVideosByName']);
-    Route::get('youtube/last-videos/{channelName}/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
-    
+    Route::get('youtube/latest-videos/{channelName}/', [YouTubeController::class, 'getLastsChannelVideosByName']);
+    Route::get('youtube/latest-videos/{channelName}/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
+
     // Obtener videos del canal por ID
-    Route::get('/channel-videos/{channelId}', [YouTubeController::class, 'getChannelVideos']);
-    
+    Route::get('youtube/channel-videos/{channelId}', [YouTubeController::class, 'getChannelVideos']);
+
     // Obtener el último video del canal por ID
-    Route::get('/last-video/{channelId}', [YouTubeController::class, 'getLastChannelVideo']);
-    
+    Route::get('youtube/last-video/{channelId}', [YouTubeController::class, 'getLastChannelVideo']);
+
     // Obtener los últimos N videos del canal por ID
-    Route::get('/last-videos/{channelId}/{number}', [YouTubeController::class, 'getLastsChannelVideos']);
-    
+    Route::get('youtube/last-videos/{channelId}/{number}', [YouTubeController::class, 'getLastsChannelVideos']);
+
     // Obtener detalles del canal por ID
-    Route::get('/channel-details/{channelId}', [YouTubeController::class, 'getChannelDetails']);
-    
+    Route::get('youtube/channel-details/{channelId}', [YouTubeController::class, 'getChannelDetails']);
+
     // Testear la búsqueda de un canal
-    Route::get('/test-channel/{channel}', [YouTubeController::class, 'testChannel']);
-    
+    Route::get('youtube/test-channel/{channel}', [YouTubeController::class, 'testChannel']);
+
     // Ruta de prueba general
-    Route::get('/test', [YouTubeController::class, 'test']);
+    Route::get('youtube/test', [YouTubeController::class, 'test']);
+
+    // Tendencias de YouTube
+    Route::get('youtube/trending', [YouTubeController::class, 'getTrendingVideos']);
+    Route::get('youtube/trending/{region}', [YouTubeController::class, 'getTrendingVideos']);
+    Route::get('youtube/trending/{region}/{number}', [YouTubeController::class, 'getTrendingVideos']);
+
+    // Búsqueda en YouTube por tema
+    Route::get('youtube/topic/{topic}', [YouTubeController::class, 'searchVideosByTopic']);
 
     /*
     Route::get('youtube/test/', [YouTubeController::class, 'test']);
@@ -91,8 +99,7 @@ Route::prefix('api/v1/')->group(function () {
     Route::get('youtube/videos/{channel}/lasts/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
         
     
-    // Búsqueda en YouTube por tema
-    Route::get('youtube/topic/{topic}', [YouTubeController::class, 'searchVideosByTopic']);
+    
     
     // Lista de vídeos creada por un usuario
     Route::get('youtube/list/{list}', [YouTubeController::class, 'getVideosFromList']);
@@ -106,8 +113,7 @@ Route::prefix('api/v1/')->group(function () {
     // Lista de los últimos vídeos de una lista de canales
     Route::get('youtube/{planet}', [YouTubeController::class, 'getPlanetVideos']);
     
-    // Tendencias de YouTube
-    Route::get('youtube/trending', [YouTubeController::class, 'getTrendingVideos']);
+
 */
 
 });

@@ -449,27 +449,27 @@ class YouTubeController extends Controller
     {
         // Obtener el ID del canal por nombre
         $response = $this->getChannelIdByName($channelName);
-    
+
         // Verificar si se obtuvo una respuesta válida
         if ($response instanceof \Illuminate\Http\JsonResponse) {
             $responseData = $response->getData(true);
-    
+
             // Si hubo un error al obtener el canal, devolver un mensaje de error
             if (isset($responseData['error'])) {
                 return response()->json(['error' => 'Channel not found'], 404);
             }
-    
+
             // Obtener el ID del canal
             $channelId = $responseData['channelId'];
-    
+
             // Obtener los videos del canal utilizando el ID
             return $this->getChannelVideos($channelId, null, $number);
         }
-    
+
         // Si no se encontró el canal, devolver un error 404
         return response()->json(['error' => 'Channel not found'], 404);
     }
-    
+
 
 
     /**
@@ -627,15 +627,17 @@ class YouTubeController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getTrendingVideos()
+    public function getTrendingVideos($region = 'ES', $results = 10)
     {
-        return $this->makeApiRequest('https://www.googleapis.com/youtube/v3/videos', [
+        return $this->makeApiRequest('/videos', [
             'part' => 'snippet',
             'chart' => 'mostPopular',
-            'regionCode' => 'ES',
-            'maxResults' => 10
+            'regionCode' => $region,
+            'maxResults' => $results
         ]);
     }
+
+
 
 
 
