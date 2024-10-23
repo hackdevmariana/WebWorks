@@ -142,18 +142,25 @@ class YouTubeController extends Controller
     }
 
     /**
-     * Obtiene el ID del canal basado en su nombre.
+     * Convierte el nombre del canal a su ID.
      *
      * @param string $channel
      * @return \Illuminate\Http\JsonResponse
      */
     public function getId($channel)
     {
+        // Llamada a la API para obtener información del canal
         $response = $this->testChannel($channel);
-        return isset($response['items'][0]['id']['channelId'])
-            ? response()->json(['channelId' => $response['items'][0]['id']['channelId']])
+
+        // Convierte la respuesta JSON en un array
+        $responseData = $response->getData(true); // true convierte el objeto a array
+
+        // Verifica si el ID del canal está en la respuesta
+        return isset($responseData['items'][0]['id']['channelId'])
+            ? response()->json(['channelId' => $responseData['items'][0]['id']['channelId']])
             : response()->json(['error' => 'Channel ID not found'], 404);
     }
+
 
     public function infoChannel($channel)
     {
@@ -370,13 +377,26 @@ class YouTubeController extends Controller
 
 
 
+    /**
+     * Obtiene el último video de un canal utilizando el nombre del canal.
+     *
+     * @param string $channelName
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getLastChannelVideoByName($channelName)
     {
-        $channelId = $this->getChannelIdByName($channelName);
-        if ($channelId) {
+        // Obtiene el ID del canal a partir del nombre
+        $channelIdResponse = $this->getId($channelName);
+        $channelIdData = $channelIdResponse->getData(true);
+
+        if (isset($channelIdData['channelId'])) {
+            $channelId = $channelIdData['channelId'];
+
+            // Llama a la API para obtener los últimos videos del canal usando el channelId
             return $this->getLastChannelVideo($channelId);
         } else {
-            return response()->json(['error' => 'Channel not found'], 404);
+            // Si no se encuentra el canal, devuelve un mensaje de error
+            return response()->json(['error' => 'Channel ID not found'], 404);
         }
     }
 
@@ -425,34 +445,71 @@ class YouTubeController extends Controller
 
 
 
-    public function getLastsChannelVideosByName($channelName, $number)
+    public function getLastsChannelVideosByName($channelName, $number = 10)
     {
-        $channelId = $this->getChannelIdByName($channelName);
-        if ($channelId) {
+        // Obtener el ID del canal por nombre
+        $response = $this->getChannelIdByName($channelName);
+    
+        // Verificar si se obtuvo una respuesta válida
+        if ($response instanceof \Illuminate\Http\JsonResponse) {
+            $responseData = $response->getData(true);
+    
+            // Si hubo un error al obtener el canal, devolver un mensaje de error
+            if (isset($responseData['error'])) {
+                return response()->json(['error' => 'Channel not found'], 404);
+            }
+    
+            // Obtener el ID del canal
+            $channelId = $responseData['channelId'];
+    
+            // Obtener los videos del canal utilizando el ID
             return $this->getChannelVideos($channelId, null, $number);
-        } else {
-            return response()->json(['error' => 'Channel not found'], 404);
         }
+    
+        // Si no se encontró el canal, devolver un error 404
+        return response()->json(['error' => 'Channel not found'], 404);
     }
+    
 
 
+    /**
+     * Obtiene el último video de un canal utilizando el ID del canal.
+     *
+     * @param string $channelId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getLastChannelVideo($channelId)
     {
-        $response = $this->makeApiRequest('https://www.googleapis.com/youtube/v3/search', [
+        // Llama a la API para obtener los últimos videos del canal
+        $response = $this->makeApiRequest('/search', [
             'part' => 'snippet',
             'channelId' => $channelId,
             'order' => 'date',
             'type' => 'video',
-            'maxResults' => 1
+            'maxResults' => 1, // Solo queremos el video más reciente
         ]);
 
-        if (isset($response['items'][0]['id']['videoId'])) {
-            $videoId = $response['items'][0]['id']['videoId'];
-            return $this->getVideoDetails($videoId);
+        // Verifica si la respuesta contiene videos
+        $responseData = $response->getData(true);
+
+        if (isset($responseData['items'][0])) {
+            $video = $responseData['items'][0];
+
+            // Devuelve la información del video más reciente
+            return response()->json([
+                'videoId' => $video['id']['videoId'],
+                'title' => $video['snippet']['title'],
+                'description' => $video['snippet']['description'],
+                'publishedAt' => $video['snippet']['publishedAt'],
+                'thumbnails' => $video['snippet']['thumbnails'],
+                'link' => 'https://www.youtube.com/watch?v=' . $video['id']['videoId'],
+            ]);
         } else {
-            return response()->json(['error' => 'No video found'], 404);
+            // Si no se encuentra un video, devuelve un mensaje de error
+            return response()->json(['error' => 'No videos found for this channel'], 404);
         }
     }
+
 
     public function getLastsChannelVideos($channelId, $number)
     {
