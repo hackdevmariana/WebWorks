@@ -36,7 +36,7 @@ Route::prefix('api/v1/')->group(function () {
     Route::get('youtube/channel/{channel}', [YouTubeController::class, 'infoChannel']);
 
     // Obtener el ID del canal por nombre de usuario
-    Route::get('youtube/channel-id/username/{username}', [YouTubeController::class, 'getChannelIdByUsername']);
+    // Route::get('youtube/channel-id/username/{username}', [YouTubeController::class, 'getChannelIdByUsername']);
 
     // Obtener el ID del canal por nombre del canal
     Route::get('youtube/channel-id/{channelName}', [YouTubeController::class, 'getChannelIdByName']);
@@ -52,19 +52,23 @@ Route::prefix('api/v1/')->group(function () {
     Route::get('youtube/latest-videos/{channelName}/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
 
     // Obtener videos del canal por ID
-    Route::get('youtube/channel-videos/{channelId}', [YouTubeController::class, 'getChannelVideos']);
+    Route::get('youtube/videos-id/{channelId}', [YouTubeController::class, 'getChannelVideos']);
 
     // Obtener el último video del canal por ID
-    Route::get('youtube/last-video/{channelId}', [YouTubeController::class, 'getLastChannelVideo']);
+    Route::get('youtube/last-video-id/{channelId}', [YouTubeController::class, 'getLastChannelVideo']);
 
     // Obtener los últimos N videos del canal por ID
-    Route::get('youtube/last-videos/{channelId}/{number}', [YouTubeController::class, 'getLastsChannelVideos']);
+    Route::get('youtube/lastest-videos-id/{channelId}/{number}', [YouTubeController::class, 'getLastsChannelVideos']);
 
     // Obtener detalles del canal por ID
     Route::get('youtube/channel-details/{channelId}', [YouTubeController::class, 'getChannelDetails']);
 
     // Testear la búsqueda de un canal
     Route::get('youtube/test-channel/{channel}', [YouTubeController::class, 'testChannel']);
+
+    // Información de un vídeo
+    Route::get('youtube/video/{videoId}', [YouTubeController::class, 'getVideoDetailsById']);
+
 
     // Ruta de prueba general
     Route::get('youtube/test', [YouTubeController::class, 'test']);
@@ -89,77 +93,80 @@ Route::prefix('api/v1/')->group(function () {
         Route::get('/channel/{number?}/{region?}', [YouTubeController::class, 'searchVideosByChannel']);
         Route::get('/playlist/{number?}/{region?}', [YouTubeController::class, 'searchVideosByPlaylist']);
     });
-});  
+
+    // Lista de los últimos vídeos de una lista de canales
+    Route::get('youtube/planet/{planet}', [YouTubeController::class, 'youtubePlanet']);
+    Route::get('youtube/planet/{planet}/{number}', [YouTubeController::class, 'youtubePlanet']);
+});
 
 
-    /*
-    Route::get('youtube/topic/{topic}/relevance', [YouTubeController::class, 'searchVideosByRelevance']);
-    Route::get('youtube/topic/{topic}/date', [YouTubeController::class, 'searchVideosByDate']);
-    Route::get('youtube/topic/{topic}/views', [YouTubeController::class, 'searchVideosByViews']);
-    Route::get('youtube/topic/{topic}/rating', [YouTubeController::class, 'searchVideosByRating']);
-    Route::get('youtube/topic/{topic}/short', [YouTubeController::class, 'searchVideosByShort']);
-    Route::get('youtube/topic/{topic}/medium', [YouTubeController::class, 'searchVideosByMedium']);
-    Route::get('youtube/topic/{topic}/long', [YouTubeController::class, 'searchVideosByLong']);
-    Route::get('youtube/topic/{topic}/channel', [YouTubeController::class, 'searchVideosByChannel']);
-    Route::get('youtube/topic/{topic}/playlist', [YouTubeController::class, 'searchVideosByPlaylist']);
+/*
+Route::get('youtube/topic/{topic}/relevance', [YouTubeController::class, 'searchVideosByRelevance']);
+Route::get('youtube/topic/{topic}/date', [YouTubeController::class, 'searchVideosByDate']);
+Route::get('youtube/topic/{topic}/views', [YouTubeController::class, 'searchVideosByViews']);
+Route::get('youtube/topic/{topic}/rating', [YouTubeController::class, 'searchVideosByRating']);
+Route::get('youtube/topic/{topic}/short', [YouTubeController::class, 'searchVideosByShort']);
+Route::get('youtube/topic/{topic}/medium', [YouTubeController::class, 'searchVideosByMedium']);
+Route::get('youtube/topic/{topic}/long', [YouTubeController::class, 'searchVideosByLong']);
+Route::get('youtube/topic/{topic}/channel', [YouTubeController::class, 'searchVideosByChannel']);
+Route::get('youtube/topic/{topic}/playlist', [YouTubeController::class, 'searchVideosByPlaylist']);
 
-    Route::get('youtube/topic/{topic}/relevance/{number}', [YouTubeController::class, 'searchVideosByRelevance']);
-    Route::get('youtube/topic/{topic}/date/{number}', [YouTubeController::class, 'searchVideosByDate']);
-    Route::get('youtube/topic/{topic}/views/{number}', [YouTubeController::class, 'searchVideosByViews']);
-    Route::get('youtube/topic/{topic}/rating/{number}', [YouTubeController::class, 'searchVideosByRating']);
-    Route::get('youtube/topic/{topic}/short/{number}', [YouTubeController::class, 'searchVideosByShort']);
-    Route::get('youtube/topic/{topic}/medium/{number}', [YouTubeController::class, 'searchVideosByMedium']);
-    Route::get('youtube/topic/{topic}/long/{number}', [YouTubeController::class, 'searchVideosByLong']);
-    Route::get('youtube/topic/{topic}/channel/{number}', [YouTubeController::class, 'searchVideosByChannel']);
-    Route::get('youtube/topic/{topic}/playlist/{number}', [YouTubeController::class, 'searchVideosByPlaylist']);
-    
-    Route::get('youtube/topic/{topic}/relevance/{number}/{region}', [YouTubeController::class, 'searchVideosByRelevance']);
-    Route::get('youtube/topic/{topic}/date/{number}/{region}', [YouTubeController::class, 'searchVideosByDate']);
-    Route::get('youtube/topic/{topic}/views/{number}/{region}', [YouTubeController::class, 'searchVideosByViews']);
-    Route::get('youtube/topic/{topic}/rating/{number}/{region}', [YouTubeController::class, 'searchVideosByRating']);
-    Route::get('youtube/topic/{topic}/short/{number}/{region}', [YouTubeController::class, 'searchVideosByShort']);
-    Route::get('youtube/topic/{topic}/medium/{number}/{region}', [YouTubeController::class, 'searchVideosByMedium']);
-    Route::get('youtube/topic/{topic}/long/{number}/{region}', [YouTubeController::class, 'searchVideosByLong']);
-    Route::get('youtube/topic/{topic}/channel/{number}/{region}', [YouTubeController::class, 'searchVideosByChannel']);
-    Route::get('youtube/topic/{topic}/playlist/{number}/{region}', [YouTubeController::class, 'searchVideosByPlaylist']);
+Route::get('youtube/topic/{topic}/relevance/{number}', [YouTubeController::class, 'searchVideosByRelevance']);
+Route::get('youtube/topic/{topic}/date/{number}', [YouTubeController::class, 'searchVideosByDate']);
+Route::get('youtube/topic/{topic}/views/{number}', [YouTubeController::class, 'searchVideosByViews']);
+Route::get('youtube/topic/{topic}/rating/{number}', [YouTubeController::class, 'searchVideosByRating']);
+Route::get('youtube/topic/{topic}/short/{number}', [YouTubeController::class, 'searchVideosByShort']);
+Route::get('youtube/topic/{topic}/medium/{number}', [YouTubeController::class, 'searchVideosByMedium']);
+Route::get('youtube/topic/{topic}/long/{number}', [YouTubeController::class, 'searchVideosByLong']);
+Route::get('youtube/topic/{topic}/channel/{number}', [YouTubeController::class, 'searchVideosByChannel']);
+Route::get('youtube/topic/{topic}/playlist/{number}', [YouTubeController::class, 'searchVideosByPlaylist']);
+
+Route::get('youtube/topic/{topic}/relevance/{number}/{region}', [YouTubeController::class, 'searchVideosByRelevance']);
+Route::get('youtube/topic/{topic}/date/{number}/{region}', [YouTubeController::class, 'searchVideosByDate']);
+Route::get('youtube/topic/{topic}/views/{number}/{region}', [YouTubeController::class, 'searchVideosByViews']);
+Route::get('youtube/topic/{topic}/rating/{number}/{region}', [YouTubeController::class, 'searchVideosByRating']);
+Route::get('youtube/topic/{topic}/short/{number}/{region}', [YouTubeController::class, 'searchVideosByShort']);
+Route::get('youtube/topic/{topic}/medium/{number}/{region}', [YouTubeController::class, 'searchVideosByMedium']);
+Route::get('youtube/topic/{topic}/long/{number}/{region}', [YouTubeController::class, 'searchVideosByLong']);
+Route::get('youtube/topic/{topic}/channel/{number}/{region}', [YouTubeController::class, 'searchVideosByChannel']);
+Route::get('youtube/topic/{topic}/playlist/{number}/{region}', [YouTubeController::class, 'searchVideosByPlaylist']);
 */
 
-    /*
-    Route::get('youtube/test/', [YouTubeController::class, 'test']);
-    Route::get('youtube/test/{channel}', [YouTubeController::class, 'testChannel']);
+/*
+Route::get('youtube/test/', [YouTubeController::class, 'test']);
+Route::get('youtube/test/{channel}', [YouTubeController::class, 'testChannel']);
 
 
-    // Recibir el ID de un canal
-    Route::get('youtube/get-id/{channel}', [YouTubeController::class, 'getId']);
+// Recibir el ID de un canal
+Route::get('youtube/get-id/{channel}', [YouTubeController::class, 'getId']);
 
-    Route::get('youtube/info/{channel}', [YouTubeController::class, 'infoChannel']);
-    Route::get('youtube/details/{channel}', [YouTubeController::class, 'getChannelDetails']);
+Route::get('youtube/info/{channel}', [YouTubeController::class, 'infoChannel']);
+Route::get('youtube/details/{channel}', [YouTubeController::class, 'getChannelDetails']);
 
 
-    // Listado de vídeos de un canal por nombre
-    Route::get('youtube/videos/{channel}', [YouTubeController::class, 'getChannelVideosByName']);
+// Listado de vídeos de un canal por nombre
+Route::get('youtube/videos/{channel}', [YouTubeController::class, 'getChannelVideosByName']);
+
+// Último vídeo de un canal por nombre
+Route::get('youtube/videos/{channel}/last', [YouTubeController::class, 'getLastChannelVideoByName']);
+
+// Últimos {number} vídeos de un canal por nombre
+Route::get('youtube/videos/{channel}/lasts/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
     
-    // Último vídeo de un canal por nombre
-    Route::get('youtube/videos/{channel}/last', [YouTubeController::class, 'getLastChannelVideoByName']);
-    
-    // Últimos {number} vídeos de un canal por nombre
-    Route::get('youtube/videos/{channel}/lasts/{number}', [YouTubeController::class, 'getLastsChannelVideosByName']);
-        
-    
-    
-    
-    // Lista de vídeos creada por un usuario
-    Route::get('youtube/list/{list}', [YouTubeController::class, 'getVideosFromList']);
-    
-    // Vídeos de una categoría
-    Route::get('youtube/category/{category}', [YouTubeController::class, 'getVideosByCategory']);
-    
-    // Vídeos por etiqueta
-    Route::get('youtube/tag/{tag}', [YouTubeController::class, 'getVideosByTag']);
-    
-    // Lista de los últimos vídeos de una lista de canales
-    Route::get('youtube/{planet}', [YouTubeController::class, 'getPlanetVideos']);
-    
+
+
+
+// Lista de vídeos creada por un usuario
+Route::get('youtube/list/{list}', [YouTubeController::class, 'getVideosFromList']);
+
+// Vídeos de una categoría
+Route::get('youtube/category/{category}', [YouTubeController::class, 'getVideosByCategory']);
+
+// Vídeos por etiqueta
+Route::get('youtube/tag/{tag}', [YouTubeController::class, 'getVideosByTag']);
+
+
+
 
 */
 
