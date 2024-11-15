@@ -9,7 +9,8 @@ class Web extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url', 'home', 'title', 'description', 'keywords', 'favicon'];
+    protected $fillable = ['url', 'home', 'title', 'description', 'keywords', 'favicon', 'name', 'slug'];
+   
 
     public function logos()
     {
