@@ -24,9 +24,10 @@ class WebServiceProvider extends ServiceProvider
 			], 'seeders');
 		}
 
-		// Load package routes if you have them
-		// $this->loadRoutesFrom(__DIR__ . '/Routes/web.php');
-		$this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        $this->loadFactoriesFrom(__DIR__ . '/Factories');
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
+        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
 
 	}
 }
+

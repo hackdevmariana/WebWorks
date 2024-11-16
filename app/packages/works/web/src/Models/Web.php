@@ -31,4 +31,8 @@ class Web extends Model
     {
         return $this->hasMany(Carousel::class);
     }
+    public function authors()
+    {
+        return $this->hasMany(Author::class, 'website_id'); 
+    }
 }
