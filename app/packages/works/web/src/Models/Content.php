@@ -27,11 +27,12 @@ class Content extends Model
 
     public function web()
     {
-        return $this->belongsTo(Web::class, 'web_id');
+        return $this->belongsTo(Web::class);
     }
-
+    
     public function author()
     {
-        return $this->belongsTo(Author::class, 'author_id');
+        return $this->belongsTo(Author::class);
     }
+    
 }

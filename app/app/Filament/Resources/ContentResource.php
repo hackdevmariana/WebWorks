@@ -1,26 +1,21 @@
 <?php
 
-namespace Works\Web\Filament\Resources;
+namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Works\Web\Models\Content;
-use Filament\Resources\Pages\CreateRecord;
-use Filament\Resources\Pages\EditRecord;
-use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ContentResource\Pages;
 
 class ContentResource extends Resource
 {
     protected static ?string $model = Content::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document';
-
     protected static ?string $navigationGroup = 'Content Management';
 
-    public static function form(Form $form): Form
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
@@ -68,7 +63,7 @@ class ContentResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
@@ -91,9 +86,9 @@ class ContentResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListRecords::route('/'),
-            'create' => CreateRecord::route('/create'),
-            'edit' => EditRecord::route('/{record}/edit'),
+            'index' => Pages\ListContents::route('/'),
+            'create' => Pages\CreateContent::route('/create'),
+            'edit' => Pages\EditContent::route('/{record}/edit'),
         ];
     }
 }

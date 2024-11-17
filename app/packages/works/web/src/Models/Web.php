@@ -41,4 +41,9 @@ class Web extends Model
         return $this->hasMany(Contact::class, 'web_id');
     }
 
+    public function contents()
+    {
+        return $this->hasMany(Content::class, 'web_id');
+    }
+
 }
