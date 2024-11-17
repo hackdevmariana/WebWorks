@@ -12,72 +12,82 @@ class AuthorResource extends Resource
 {
     protected static ?string $model = Author::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Content Management';
+    protected static ?string $label = 'Author';
+    protected static ?string $pluralLabel = 'Authors';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('website_id')
-                    ->relationship('website', 'title')
-                    ->required(),
+                Forms\Components\TextInput::make('website_id')
+                    ->label('Website ID')
+                    ->required()
+                    ->numeric(),
+
                 Forms\Components\TextInput::make('username')
-                    ->unique()
-                    ->required(),
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('surname')->required(),
+                    ->required()
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('surname')
+                    ->required()
+                    ->maxLength(255),
+
                 Forms\Components\Repeater::make('links')
+                    ->label('Links')
                     ->schema([
                         Forms\Components\TextInput::make('key')
-                            ->label('Key')
+                            ->label('Platform')
                             ->required(),
                         Forms\Components\TextInput::make('value')
-                            ->label('Value')
-                            ->url()
-                            ->required(),
+                            ->label('URL')
+                            ->required()
+                            ->url(),
                     ])
-                    ->label('Links')
-                    ->nullable()
-                    ->default([]),
+                    ->default([])
+                    ->columnSpan('full'),
 
                 Forms\Components\FileUpload::make('photo')
+                    ->label('Photo')
                     ->image(),
-                Forms\Components\Textarea::make('biography')->nullable(),
+
+                Forms\Components\Textarea::make('biography')
+                    ->label('Biography'),
+
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->unique(ignorable: fn ($record) => $record)
+                    ->maxLength(255),
             ]);
     }
 
     public static function table(Tables\Table $table): Tables\Table
-{
-    return $table
-        ->columns([
-            Tables\Columns\TextColumn::make('name')->searchable(),
-            Tables\Columns\TextColumn::make('surname')->searchable(),
-            Tables\Columns\TextColumn::make('website.url')->label('Website'),
-            Tables\Columns\TextColumn::make('username'),
-            Tables\Columns\TextColumn::make('links')
-                ->label('Links')
-                ->formatStateUsing(function ($state) {
-                    if (is_array($state) && !empty($state)) {
-                        return collect($state)
-                            ->map(fn ($value, $key) => "<strong>{$key}:</strong> <a href='{$value}' target='_blank'>{$value}</a>")
-                            ->join('<br>');
-                    }
-                    return '-';
-                })
-                
-                ->html(),
-        ])
-        ->filters([])
-        ->actions([
-            Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            Tables\Actions\DeleteBulkAction::make(),
-        ]);
-}
-
+    {
+        return $table
+            ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
+                Tables\Columns\TextColumn::make('website_id')->label('Website'),
+                Tables\Columns\TextColumn::make('username')->searchable(),
+                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('surname')->searchable(),
+                Tables\Columns\TextColumn::make('slug')->searchable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+            ])
+            ->filters([])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
+    }
 
     public static function getRelations(): array
     {
