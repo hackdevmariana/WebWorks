@@ -10,7 +10,7 @@ class Web extends Model
     use HasFactory;
 
     protected $fillable = ['url', 'home', 'title', 'description', 'keywords', 'favicon', 'name', 'slug'];
-   
+
 
     public function logos()
     {
@@ -33,6 +33,12 @@ class Web extends Model
     }
     public function authors()
     {
-        return $this->hasMany(Author::class, 'website_id'); 
+        return $this->hasMany(Author::class, 'website_id');
     }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'web_id');
+    }
+
 }
