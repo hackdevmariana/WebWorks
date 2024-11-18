@@ -49,5 +49,9 @@ class Web extends Model
     {
         return $this->hasMany(Copy::class, 'web_id');
     }
+    public function developeds()
+    {
+        return $this->hasMany(Developed::class, 'web_id');
+    }
 
 }
