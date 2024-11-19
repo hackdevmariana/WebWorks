@@ -14,7 +14,7 @@ class Web extends Model
 
     public function logos()
     {
-        return $this->belongsToMany(Logo::class);
+        return $this->hasMany(Logo::class);
     }
     public function links()
     {

@@ -5,5 +5,6 @@
 # php artisan db:seed --class=Works\\Web\\Seeders\\CopySeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\DevelopedSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\ErrorPageSeeder
-php artisan db:seed --class=Works\\Web\\Seeders\\LinkSeeder
+# php artisan db:seed --class=Works\\Web\\Seeders\\LinkSeeder
+php artisan db:seed --class=Works\\Web\\Seeders\\LogoSeeder
 
