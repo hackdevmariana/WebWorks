@@ -14,7 +14,7 @@ class LinkResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-link';
 
-    protected static ?string $navigationGroup = 'Web Management';
+    protected static ?string $navigationGroup = 'Content Management';
 
     public static function form(Forms\Form $form): Forms\Form
     {

@@ -16,7 +16,7 @@ class LogoResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Web Management';
+    protected static ?string $navigationGroup = 'Content Management';
 
     public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
     {
