@@ -7,6 +7,8 @@ use Works\Web\Controllers\Api\ContactController;
 use Works\Web\Controllers\Api\ContentController;
 use Works\Web\Controllers\Api\CopyController;
 use Works\Web\Controllers\Api\DevelopedController;
+use Works\Web\Controllers\Api\ErrorPageController;
+
 
 
 Route::prefix('api/v1')->group(function () {
@@ -22,4 +24,6 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/copy/{copySlug}', [CopyController::class, 'show']);
     Route::get('/webs/{webSlug}/developed', [DevelopedController::class, 'index']);
     Route::get('/webs/{webSlug}/developed/{developedSlug}', [DevelopedController::class, 'show']);
+    Route::get('/webs/{webSlug}/errorpages', [ErrorPageController::class, 'index']);
+    Route::get('/webs/{webSlug}/errorpages/{errorNumber}', [ErrorPageController::class, 'show']);
 });
