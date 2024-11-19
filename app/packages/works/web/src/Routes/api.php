@@ -8,6 +8,7 @@ use Works\Web\Controllers\Api\ContentController;
 use Works\Web\Controllers\Api\CopyController;
 use Works\Web\Controllers\Api\DevelopedController;
 use Works\Web\Controllers\Api\ErrorPageController;
+use Works\Web\Controllers\Api\LinkController;
 
 
 
@@ -26,4 +27,6 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/developed/{developedSlug}', [DevelopedController::class, 'show']);
     Route::get('/webs/{webSlug}/errorpages', [ErrorPageController::class, 'index']);
     Route::get('/webs/{webSlug}/errorpages/{errorNumber}', [ErrorPageController::class, 'show']);
+    Route::get('/webs/{webSlug}/links', [LinkController::class, 'index']);
+    Route::get('/webs/{webSlug}/links/{linkSlug}', [LinkController::class, 'show']);
 });

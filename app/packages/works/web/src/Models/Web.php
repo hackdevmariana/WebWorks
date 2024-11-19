@@ -16,7 +16,11 @@ class Web extends Model
     {
         return $this->belongsToMany(Logo::class);
     }
-
+    public function links()
+    {
+        return $this->hasMany(Link::class, 'web_id');
+    }
+    
     public function errorPages()
     {
         return $this->hasMany(ErrorPage::class);
