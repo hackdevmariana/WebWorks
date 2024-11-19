@@ -20,6 +20,10 @@ class Web extends Model
     {
         return $this->hasMany(Link::class, 'web_id');
     }
+    public function headlines()
+    {
+        return $this->hasMany(Headline::class, 'web_id');
+    }
     
     public function errorPages()
     {
