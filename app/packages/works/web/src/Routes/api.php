@@ -11,6 +11,7 @@ use Works\Web\Controllers\Api\ErrorPageController;
 use Works\Web\Controllers\Api\LinkController;
 use Works\Web\Controllers\Api\LogoController;
 use Works\Web\Controllers\Api\HeadlineController;
+use Works\Web\Controllers\Api\SocialNetworkController;
 
 
 
@@ -35,4 +36,6 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/logos/{logoSlug}', [LogoController::class, 'show']);
     Route::get('/webs/{webSlug}/headlines', [HeadlineController::class, 'index']);
     Route::get('/webs/{webSlug}/headlines/{headlineSlug}', [HeadlineController::class, 'show']);
+    Route::get('/webs/{webSlug}/socialnetworks', [SocialNetworkController::class, 'index']);
+    Route::get('/webs/{webSlug}/socialnetworks/{socialnetworkSlug}', [SocialNetworkController::class, 'show']);
 });
