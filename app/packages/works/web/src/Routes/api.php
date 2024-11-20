@@ -12,6 +12,7 @@ use Works\Web\Controllers\Api\LinkController;
 use Works\Web\Controllers\Api\LogoController;
 use Works\Web\Controllers\Api\HeadlineController;
 use Works\Web\Controllers\Api\SocialNetworkController;
+use Works\Web\Controllers\Api\VideoController;
 
 
 
@@ -36,6 +37,6 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/logos/{logoSlug}', [LogoController::class, 'show']);
     Route::get('/webs/{webSlug}/headlines', [HeadlineController::class, 'index']);
     Route::get('/webs/{webSlug}/headlines/{headlineSlug}', [HeadlineController::class, 'show']);
-    Route::get('/webs/{webSlug}/socialnetworks', [SocialNetworkController::class, 'index']);
-    Route::get('/webs/{webSlug}/socialnetworks/{socialnetworkSlug}', [SocialNetworkController::class, 'show']);
+    Route::get('/webs/{webSlug}/videos', [VideoController::class, 'index']);
+    Route::get('/webs/{webSlug}/videos/{videoSlug}', [VideoController::class, 'show']);
 });
