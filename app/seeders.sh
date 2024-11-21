@@ -9,5 +9,6 @@
 # php artisan db:seed --class=Works\\Web\\Seeders\\LogoSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\HeadlineSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\SocialNetworkSeeder
-php artisan db:seed --class=Works\\Web\\Seeders\\VideoSeeder
+# php artisan db:seed --class=Works\\Web\\Seeders\\VideoSeeder
+php artisan db:seed --class=Works\\Web\\Seeders\\PlaylistSeeder
 

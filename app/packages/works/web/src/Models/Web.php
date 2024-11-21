@@ -24,7 +24,10 @@ class Web extends Model
     {
         return $this->hasMany(Headline::class, 'web_id');
     }
-
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
     public function socialnetworks()
     {
         return $this->hasMany(SocialNetwork::class, 'web_id');
