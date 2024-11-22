@@ -69,5 +69,8 @@ class Web extends Model
     {
         return $this->hasMany(Developed::class, 'web_id');
     }
-
+    public function questionAnswers()
+    {
+        return $this->hasMany(QuestionAnswer::class, 'web_id');
+    }
 }
