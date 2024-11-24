@@ -21,7 +21,6 @@ class FAQ extends Model
         return $this->belongsTo(Web::class);
     }
 
-
     public function questions()
     {
         return $this->hasMany(QuestionAnswer::class, 'faq_id');
