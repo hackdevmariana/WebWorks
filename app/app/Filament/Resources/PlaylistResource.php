@@ -3,10 +3,9 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PlaylistResource\RelationManagers\VideosRelationManager;
-
-
 use App\Filament\Resources\PlaylistResource\Pages;
 use Works\Web\Models\Playlist;
+use Works\Web\Models\Video; // Importar el modelo Video
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -15,7 +14,11 @@ use Filament\Tables;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput as FormTextInput;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\Select;
+
 
 class PlaylistResource extends Resource
 {
@@ -27,7 +30,6 @@ class PlaylistResource extends Resource
     protected static ?string $label = 'Playlist';
 
     public static function form(\Filament\Forms\Form $form): \Filament\Forms\Form
-
     {
         return $form
             ->schema([
@@ -47,11 +49,27 @@ class PlaylistResource extends Resource
                 Textarea::make('description')
                     ->label('Descripción')
                     ->rows(3),
+
+                // Repeater para gestionar los videos de la playlist
+                Repeater::make('videos')
+                    ->relationship('videos') // Relación definida en el modelo Playlist
+                    ->schema([
+                        Select::make('video_id') // Cambiado BelongsToSelect a Select
+                            ->options(Video::all()->pluck('title', 'id')) // Usar el título del video y su id
+                            ->required()
+                            ->label('Video'),
+                        FormTextInput::make('order') // Campo para establecer el orden de los videos
+                            ->label('Orden')
+                            ->numeric()
+                            ->minValue(1),
+                    ])
+                    ->orderable('order') // Permitir que los videos sean ordenados
+                    ->collapsible()
+                    ->createItemButtonLabel('Añadir Video'),
             ]);
     }
 
     public static function table(Tables\Table $table): Tables\Table
-
     {
         return $table
             ->columns([
@@ -79,16 +97,10 @@ class PlaylistResource extends Resource
             ]);
     }
 
-
-    public static function getRelations(): array
+    protected function getTableQuery(): Builder
     {
-        return [
-            VideosRelationManager::class,
-        ];
+        return $this->getRelation()->getQuery()->withPivot('order');
     }
-    
-    
-
 
     public static function getPages(): array
     {

@@ -24,8 +24,11 @@ class Video extends Model
     {
         return $this->belongsTo(Web::class);
     }
+    // En el modelo Video
     public function playlists()
     {
-        return $this->belongsToMany(Playlist::class)->withPivot('order');
+        return $this->belongsToMany(Playlist::class)
+            ->withPivot('order');
     }
+
 }

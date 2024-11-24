@@ -2,16 +2,14 @@
 
 namespace App\Filament\Resources\PlaylistResource\RelationManagers;
 
-
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 
-
 class VideosRelationManager extends RelationManager
 {
-    protected static string $relationship = 'videos';
+    protected static string $relationship = 'videos'; // Relación definida en el modelo Playlist
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -19,6 +17,7 @@ class VideosRelationManager extends RelationManager
     {
         return $form
             ->schema([
+                // Configura el campo de 'order' en la tabla pivot
                 Forms\Components\TextInput::make('pivot.order')
                     ->label('Order')
                     ->numeric()
@@ -47,10 +46,7 @@ class VideosRelationManager extends RelationManager
 
     protected function getTableQuery(): Builder
     {
-        // Usa la relación configurada en el RelationManager
-        return $this->getRelationship()->getQuery()->withPivot('order');
+        // Accede a la relación 'videos' de la Playlist y carga el pivot 'order'
+        return $this->getRelationshipQuery()->withPivot('order');
     }
-    
-
-
 }
