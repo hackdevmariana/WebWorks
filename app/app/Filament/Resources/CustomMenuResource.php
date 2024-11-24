@@ -55,6 +55,7 @@ class CustomMenuResource extends Resource
                             ->columns(2),
                     ])
                     ->createItemButtonLabel('Add Link')
+                    ->collapsed()
                     ->collapsible()
                     ->columns(2),
             ]);

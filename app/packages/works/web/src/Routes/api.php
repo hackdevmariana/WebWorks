@@ -19,6 +19,8 @@ use Works\Web\Controllers\Api\FAQController;
 use Works\Web\Controllers\Api\CustomMenuController;
 use Works\Web\Controllers\Api\CarouselController;
 use Works\Web\Controllers\Api\GalleryController;
+use Works\Web\Controllers\Api\FeaturedContentController;
+
 
 
 
@@ -61,4 +63,7 @@ Route::prefix('api/v1')->group(function () {
 
     Route::get('/webs/{webSlug}/galleries', [GalleryController::class, 'index']);
     Route::get('/webs/{webSlug}/galleries/{gallerySlug}', [GalleryController::class, 'show']);
+    Route::get('/webs/{webSlug}/featured-contents', [FeaturedContentController::class, 'index']);
+    Route::get('/webs/{webSlug}/featured-contents/{contentSlug}', [FeaturedContentController::class, 'show']);
+
 });
