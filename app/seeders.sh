@@ -13,5 +13,6 @@
 # php artisan db:seed --class=Works\\Web\\Seeders\\PlaylistSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\QuestionAnswerSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\FAQSeeder
-php artisan db:seed --class=Works\\Web\\Seeders\\CustomMenuSeeder
+# php artisan db:seed --class=Works\\Web\\Seeders\\CustomMenuSeeder
+php artisan db:seed --class=Works\\Web\\Seeders\\CarouselSeeder
 

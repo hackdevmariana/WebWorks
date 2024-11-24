@@ -29,10 +29,14 @@ class Content extends Model
     {
         return $this->belongsTo(Web::class);
     }
-    
+
     public function author()
     {
         return $this->belongsTo(Author::class);
     }
-    
+    public function carousels()
+    {
+        return $this->belongsToMany(Carousel::class, 'carousel_content');
+    }
+
 }

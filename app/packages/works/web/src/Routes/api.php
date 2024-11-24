@@ -17,6 +17,8 @@ use Works\Web\Controllers\Api\PlaylistController;
 use Works\Web\Controllers\Api\QuestionAnswerController;
 use Works\Web\Controllers\Api\FAQController;
 use Works\Web\Controllers\Api\CustomMenuController;
+use Works\Web\Controllers\Api\CarouselController;
+
 
 
 Route::prefix('api/v1')->group(function () {
@@ -49,7 +51,10 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/questions/categories/{category}', [QuestionAnswerController::class, 'questionsByCategory']);
     Route::get('/webs/{webSlug}/questions/{questionanswerSlug}', [QuestionAnswerController::class, 'show']);
     Route::get('/webs/{webSlug}/faqs', [FAQController::class, 'index']);
-    Route::get('webs/{webSlug}/faqs/{faqSlug}', [FAQController::class, 'show']);
+    Route::get('/webs/{webSlug}/faqs/{faqSlug}', [FAQController::class, 'show']);
     Route::get('/webs/{webSlug}/menus', [CustomMenuController::class, 'index']);
-    Route::get('webs/{webSlug}/menus/{menuSlug}', [CustomMenuController::class, 'show']);
+    Route::get('/webs/{webSlug}/menus/{menuSlug}', [CustomMenuController::class, 'show']);
+
+    Route::get('/webs/{webSlug}/carousels', [CarouselController::class, 'index']);
+    Route::get('/webs/{webSlug}/carousels/{carouselSlug}', [CarouselController::class, 'show']);
 });
