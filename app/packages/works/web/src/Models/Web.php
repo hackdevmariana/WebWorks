@@ -16,6 +16,11 @@ class Web extends Model
     {
         return $this->hasMany(Logo::class);
     }
+
+    public function menus() 
+    {
+        return $this->hasMany(CustomMenu::class);  
+    }
     public function links()
     {
         return $this->hasMany(Link::class, 'web_id');

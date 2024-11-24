@@ -5,27 +5,24 @@ namespace Works\Web\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Link extends Model
+class CustomMenu extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'web_id',
-        'text',
+        'name',
         'slug',
-        'url',
-        'icon',
     ];
 
     public function web()
     {
-        return $this->belongsTo(Web::class, 'web_id');
+        return $this->belongsTo(Web::class);
     }
 
-    public function customMenus()
+
+    public function links()
     {
-        return $this->belongsToMany(CustomMenu::class);
+        return $this->belongsToMany(Link::class);
     }
-
-
 }
