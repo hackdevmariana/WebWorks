@@ -53,12 +53,15 @@ class PlaylistResource extends Resource
                 
                 Repeater::make('videos')
                     ->relationship('videos') 
+                    ->itemLabel(function ($state) {
+                        return $state['title'] ?? 'New video';
+                    })
                     ->schema([
                         Select::make('video_id') 
-                            ->options(Video::all()->pluck('title', 'id')) // Usar el título del video y su id
+                            ->options(Video::all()->pluck('title', 'id'))
                             ->required()
                             ->label('Video'),
-                        FormTextInput::make('order') // Campo para establecer el orden de los videos
+                        FormTextInput::make('order')
                             ->label('Orden')
                             ->numeric()
                             ->minValue(1),

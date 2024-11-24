@@ -36,7 +36,10 @@ class FAQResource extends Resource
                     ->required(),
     
                 Forms\Components\Repeater::make('questions')
-                    ->relationship('questions') // Relación 'questions' definida en el modelo FAQ
+                    ->relationship('questions')
+                    ->itemLabel(function ($state) {
+                        return $state['title'] ?? 'New ask';
+                    })
                     ->schema([
                         Forms\Components\TextInput::make('title')->required(),
                         Forms\Components\TextInput::make('slug')->required(),
@@ -45,6 +48,8 @@ class FAQResource extends Resource
                         Forms\Components\TextInput::make('category'),
                     ])
                     ->orderable('id')
+                    ->collapsed() 
+
                     ->collapsible()
                     ->createItemButtonLabel('Add Question'),
             ]);
