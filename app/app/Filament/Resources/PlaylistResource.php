@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PlaylistResource\RelationManagers\VideosRelationManager;
 use App\Filament\Resources\PlaylistResource\Pages;
 use Works\Web\Models\Playlist;
-use Works\Web\Models\Video; // Importar el modelo Video
+use Works\Web\Models\Video; 
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -50,11 +50,11 @@ class PlaylistResource extends Resource
                     ->label('Descripción')
                     ->rows(3),
 
-                // Repeater para gestionar los videos de la playlist
+                
                 Repeater::make('videos')
-                    ->relationship('videos') // Relación definida en el modelo Playlist
+                    ->relationship('videos') 
                     ->schema([
-                        Select::make('video_id') // Cambiado BelongsToSelect a Select
+                        Select::make('video_id') 
                             ->options(Video::all()->pluck('title', 'id')) // Usar el título del video y su id
                             ->required()
                             ->label('Video'),
@@ -63,7 +63,8 @@ class PlaylistResource extends Resource
                             ->numeric()
                             ->minValue(1),
                     ])
-                    ->orderable('order') // Permitir que los videos sean ordenados
+                    ->orderable('order') 
+                    ->collapsed() 
                     ->collapsible()
                     ->createItemButtonLabel('Añadir Video'),
             ]);

@@ -25,4 +25,5 @@ class CustomMenu extends Model
     {
         return $this->belongsToMany(Link::class);
     }
+    
 }
