@@ -15,6 +15,7 @@ use Works\Web\Controllers\Api\SocialNetworkController;
 use Works\Web\Controllers\Api\VideoController;
 use Works\Web\Controllers\Api\PlaylistController;
 use Works\Web\Controllers\Api\QuestionAnswerController;
+use Works\Web\Controllers\Api\FAQController;
 
 
 Route::prefix('api/v1')->group(function () {
@@ -45,6 +46,7 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/questions', [QuestionAnswerController::class, 'index']);
     Route::get('/webs/{webSlug}/questions/categories', [QuestionAnswerController::class, 'categories']);
     Route::get('/webs/{webSlug}/questions/categories/{category}', [QuestionAnswerController::class, 'questionsByCategory']);
-
     Route::get('/webs/{webSlug}/questions/{questionanswerSlug}', [QuestionAnswerController::class, 'show']);
+    Route::get('/webs/{webSlug}/faqs', [FAQController::class, 'index']);
+    Route::get('webs/{webSlug}/faqs/{faqSlug}', [FAQController::class, 'show']);
 });

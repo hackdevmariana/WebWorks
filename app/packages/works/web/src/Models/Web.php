@@ -49,7 +49,7 @@ class Web extends Model
     }
     public function authors()
     {
-        return $this->hasMany(Author::class, 'website_id');
+        return $this->hasMany(Author::class, 'web_id');
     }
 
     public function contacts()
@@ -73,4 +73,10 @@ class Web extends Model
     {
         return $this->hasMany(QuestionAnswer::class, 'web_id');
     }
+
+    public function faqs()
+    {
+        return $this->hasMany(FAQ::class, 'web_id');
+    }
+    
 }
