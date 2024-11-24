@@ -83,5 +83,9 @@ class Web extends Model
     {
         return $this->hasMany(FAQ::class, 'web_id');
     }
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'web_id');
+    }
     
 }
