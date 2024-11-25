@@ -15,8 +15,9 @@ class FeaturedContent extends Model
 
     public function content()
     {
-        return $this->belongsTo(Content::class);
+        return $this->belongsTo(Content::class, 'content_id');
     }
+
 
     public function publicationPattern()
     {
@@ -27,4 +28,5 @@ class FeaturedContent extends Model
     {
         return $this->hasOne(PublicationPeriod::class);
     }
+
 }
