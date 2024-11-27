@@ -1,12 +1,58 @@
 # WebWorks
 
-It provides the information needed for standard websites through a read-only API.
+Manage and host the content of one or more websites through a read-only API.
 
 For static websites, you can insert the data through seeders.
 
-For dynamic websites, you can manage the database information by installing a control panel, such as [WebWorksDashboard](https://github.com/hackdevmariana/WebWorksDashboard) (based on FilamentPHP).
+Manage the information to be served to the frontend through a Filament-based control panel.
 
 Supports multi site.
+
+
+## Install project
+
+Clone the repository:
+
+``` sh 
+git clone https://github.com/hackdevmariana/WebWorks.git
+``` 
+
+Install Laravel dependencies:
+
+``` sh 
+composer install
+``` 
+
+Install JavaScript dependencies:
+
+``` sh 
+npm install
+``` 
+
+Rename .env file:
+
+``` sh 
+cp .env.example .env
+``` 
+
+Generate the application key:
+
+``` sh
+php artisan key:generate
+``` 
+
+Create the database structure:
+
+``` sh 
+php artisan migrate
+``` 
+
+Seed the database:
+
+``` sh 
+php artisan db:seed
+``` 
+
 
 ## Routes
 
