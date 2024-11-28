@@ -25,14 +25,26 @@ use Works\Web\Controllers\Api\FeaturedContentController;
 
 
 Route::prefix('api/v1')->group(function () {
-    Route::get('/webs', [WebController::class, 'index']);
-    Route::get('/webs/{webSlug}', [WebController::class, 'showBySlug']);
-    Route::get('/webs/{webSlug}/authors', [AuthorController::class, 'index']);
-    Route::get('/webs/{webSlug}/authors/{authorSlug}', [AuthorController::class, 'show']);
-    Route::get('/webs/{webSlug}/contact', [ContactController::class, 'show']);
-    Route::get('/webs/{webSlug}/contact/{contactSlug}', [ContactController::class, 'showContact']);
-    Route::get('/webs/{webSlug}/content', [ContentController::class, 'index']);
-    Route::get('/webs/{webSlug}/content/{contentSlug}', [ContentController::class, 'show']);
+    // Global endpoints
+    Route::get('webs', [WebController::class, 'index']);
+    Route::get('webs/{webSlug}', [WebController::class, 'showBySlug']);
+
+    Route::prefix('webs/{webSlug}')->group(function () {
+        // Authors
+        Route::get('authors', [AuthorController::class, 'index']);
+        Route::get('authors/{authorSlug}', [AuthorController::class, 'show']);
+
+        // Contacts
+        Route::get('contact', [ContactController::class, 'show']);
+        Route::get('contact/{contactSlug}', [ContactController::class, 'showContact']);
+
+        // Contents
+        Route::get('content', [ContentController::class, 'index']);
+        Route::get('content/{contentSlug}', [ContentController::class, 'show']);
+    });
+
+
+    
     Route::get('/webs/{webSlug}/copy', [CopyController::class, 'index']);
     Route::get('/webs/{webSlug}/copy/{copySlug}', [CopyController::class, 'show']);
     Route::get('/webs/{webSlug}/developed', [DevelopedController::class, 'index']);
@@ -57,10 +69,8 @@ Route::prefix('api/v1')->group(function () {
     Route::get('/webs/{webSlug}/faqs/{faqSlug}', [FAQController::class, 'show']);
     Route::get('/webs/{webSlug}/menus', [CustomMenuController::class, 'index']);
     Route::get('/webs/{webSlug}/menus/{menuSlug}', [CustomMenuController::class, 'show']);
-
     Route::get('/webs/{webSlug}/carousels', [CarouselController::class, 'index']);
     Route::get('/webs/{webSlug}/carousels/{carouselSlug}', [CarouselController::class, 'show']);
-
     Route::get('/webs/{webSlug}/galleries', [GalleryController::class, 'index']);
     Route::get('/webs/{webSlug}/galleries/{gallerySlug}', [GalleryController::class, 'show']);
     Route::get('/webs/{webSlug}/featured-contents', [FeaturedContentController::class, 'index']);

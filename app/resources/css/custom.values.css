@@ -1,0 +1,21 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: #50e3c2;
+    --background-light: #f8f9fa;
+    --background-dark: #1f2937;
+    --text-light: #374151;
+    --text-dark: #d1d5db;
+    --border-radius: 0.75rem;
+    --transition-speed: 0.3s;
+
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+}
+
+[data-theme="dark"] {
+    --background-light: #1f2937;
+    --background-dark: #f8f9fa;
+    --text-light: #d1d5db;
+    --text-dark: #374151;
+}

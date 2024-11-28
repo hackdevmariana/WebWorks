@@ -1,0 +1,76 @@
+/* Copia los estilos del archivo original como base */
+@import "../../../../filament/filament/resources/css/theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "custom-values.css";
+
+body {
+    @apply bg-[var(--background-light)] text-[var(--text-light)] dark:bg-[var(--background-dark)] dark:text-[var(--text-dark)];
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+header {
+    @apply bg-[var(--background-light)] dark:bg-[var(--background-dark)];
+    transition: background-color var(--transition-speed);
+}
+
+header .fi-header-heading {
+    @apply hidden; /* Modern simplification */
+}
+
+header .fi-header {
+    @apply px-6 py-4;
+    transition: background-color var(--transition-speed);
+}
+
+.fi-sidebar-nav {
+    @apply px-4 pt-6 pb-8 bg-[var(--background-light)] dark:bg-[var(--background-dark)];
+    transition: background-color var(--transition-speed);
+    scrollbar-gutter: stable;
+}
+
+.fi-sidebar-item a {
+    @apply px-3 py-2 rounded-lg transition-all duration-300 ease-in-out;
+    background-color: transparent;
+    color: var(--text-light);
+}
+
+.fi-sidebar-item a:hover {
+    @apply bg-[var(--primary-color)] text-white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fi-sidebar-item-active a {
+    @apply bg-[var(--primary-color)] text-white shadow-md;
+}
+
+button {
+    @apply bg-[var(--secondary-color)] text-white px-4 py-2 rounded-lg;
+    transition: transform var(--transition-speed);
+}
+
+button:hover {
+    @apply bg-[var(--primary-color)];
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+input {
+    @apply border border-gray-300 rounded-lg px-4 py-2 bg-white dark:bg-gray-800 dark:border-gray-600 text-[var(--text-light)];
+    transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
+
+input:focus {
+    @apply border-[var(--primary-color)] outline-none;
+}
+
+footer {
+    @apply mt-4 bg-[var(--background-light)] text-[var(--text-light)] dark:bg-[var(--background-dark)] dark:text-[var(--text-dark)];
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}

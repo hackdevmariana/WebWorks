@@ -13,13 +13,21 @@ class WebController extends Controller
      */
     public function index()
     {
-        return response()->json(Web::all(), 200);
+        // Select only the necessary fields
+        $webs = Web::select('url', 'home', 'title', 'description', 'keywords', 'favicon', 'name', 'slug')->get();
+        return response()->json($webs, 200);
     }
 
+    /**
+     * Display the specified website by slug.
+     */
     public function showBySlug($slug)
     {
-        $web = Web::where('slug', $slug)->firstOrFail();
+        // Select only the necessary fields and search by slug
+        $web = Web::select('url', 'home', 'title', 'description', 'keywords', 'favicon', 'name', 'slug')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
         return response()->json($web, 200);
     }
-
 }

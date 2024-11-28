@@ -83,9 +83,7 @@ class WebResource extends Resource
                     ->searchable()
                     ->label('Title'),
 
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->label('Created At'),
+                
             ])
             ->filters([
                 // Puedes agregar filtros personalizados aquí
