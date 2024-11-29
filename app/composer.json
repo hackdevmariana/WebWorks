@@ -25,6 +25,7 @@
         "mallardduck/blade-lucide-icons": "^1.23",
         "owenvoke/blade-fontawesome": "^2.7",
         "postare/blade-mdi": "^1.1",
+        "schmeits/filament-character-counter": "^1.3",
         "tomatophp/filament-simple-theme": "^1.0"
     },
     "require-dev": {

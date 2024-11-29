@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Filament\Resources\WebResource\Pages;
 
 use App\Filament\Resources\WebResource;
@@ -15,5 +14,10 @@ class EditWeb extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+
+    protected function afterSave(): void
+    {
+        $this->redirect(WebResource::getUrl('index'));
     }
 }
