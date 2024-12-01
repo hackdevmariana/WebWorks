@@ -9,43 +9,50 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Resources\Table;
 use Works\Web\Models\Headline;
+use Filament\Resources\Concerns\Translatable;
+
 
 class HeadlineResource extends Resource
 {
     protected static ?string $model = Headline::class;
+    use Translatable;
 
     protected static ?string $navigationIcon = 'fluentui-text-case-title-16';
 
     protected static ?string $navigationGroup = 'Content Management';
 
     public static function form(Forms\Form $form): Forms\Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\BelongsToSelect::make('web_id')
-                    ->relationship('web', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->unique(ignoreRecord: true)
-                    ->required(),
-                Forms\Components\Textarea::make('description')
-                    ->nullable(),
-                Forms\Components\TextInput::make('text')
-                    ->required(),
-                Forms\Components\Select::make('h')
-                    ->options([
-                        'h1' => 'H1',
-                        'h2' => 'H2',
-                        'h3' => 'H3',
-                        'h4' => 'H4',
-                        'h5' => 'H5',
-                        'h6' => 'H6',
-                    ])
-                    ->required(),
-                Forms\Components\TextInput::make('class')
-                    ->nullable(),
-            ]);
-    }
+{
+    return $form
+        ->schema([
+            Forms\Components\BelongsToSelect::make('web_id')
+                ->relationship('web', 'name')
+                ->required(),
+            Forms\Components\TextInput::make('slug')
+                ->unique(ignoreRecord: true)
+                ->required(),
+            Forms\Components\Textarea::make('description')
+                ->translatable() // Habilitar traducción
+                ->nullable(),
+            Forms\Components\TextInput::make('text')
+                ->translatable() // Habilitar traducción
+                ->required(),
+            Forms\Components\Select::make('h')
+                ->translatable() // Habilitar traducción
+                ->options([
+                    'h1' => 'H1',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                ])
+                ->required(),
+            Forms\Components\TextInput::make('class')
+                ->translatable() // Habilitar traducción
+                ->nullable(),
+        ]);
+}
 
     public static function table(Tables\Table $table): Tables\Table
     {
