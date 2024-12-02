@@ -87,5 +87,8 @@ class Web extends Model
     {
         return $this->hasMany(Gallery::class, 'web_id');
     }
-    
+    public function cssVariables()
+    {
+        return $this->hasMany(CssVariable::class);
+    }
 }
