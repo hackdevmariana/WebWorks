@@ -9,13 +9,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Resources\Table;
 use Works\Web\Models\Headline;
-use Filament\Resources\Concerns\Translatable;
 
 
 class HeadlineResource extends Resource
 {
     protected static ?string $model = Headline::class;
-    use Translatable;
+
 
     protected static ?string $navigationIcon = 'fluentui-text-case-title-16';
 
@@ -32,13 +31,11 @@ class HeadlineResource extends Resource
                 ->unique(ignoreRecord: true)
                 ->required(),
             Forms\Components\Textarea::make('description')
-                ->translatable() // Habilitar traducción
                 ->nullable(),
             Forms\Components\TextInput::make('text')
-                ->translatable() // Habilitar traducción
                 ->required(),
             Forms\Components\Select::make('h')
-                ->translatable() // Habilitar traducción
+                
                 ->options([
                     'h1' => 'H1',
                     'h2' => 'H2',
@@ -49,7 +46,6 @@ class HeadlineResource extends Resource
                 ])
                 ->required(),
             Forms\Components\TextInput::make('class')
-                ->translatable() // Habilitar traducción
                 ->nullable(),
         ]);
 }
