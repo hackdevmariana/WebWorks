@@ -89,6 +89,16 @@ class Web extends Model
     }
     public function cssVariables()
     {
-        return $this->hasMany(CssVariable::class);
+        return $this->hasMany(CssVariable::class, 'web_id');
+    }
+
+    public function cssFonts()
+    {
+        return $this->hasMany(CssFont::class, 'web_id');
+    }
+
+    public function cssGenerals()
+    {
+        return $this->hasMany(CssGeneral::class, 'web_id');
     }
 }
