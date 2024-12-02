@@ -17,6 +17,7 @@
 # php artisan db:seed --class=Works\\Web\\Seeders\\CarouselSeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\GallerySeeder
 # php artisan db:seed --class=Works\\Web\\Seeders\\FeaturedContentSeeder
-# php artisan db:seed --class=Works\\Web\\Seeders\\CssVariableSeeder
-php artisan db:seed --class=Works\\Web\\Seeders\\CssFontSeeder
+php artisan db:seed --class=Works\\Web\\Seeders\\CssVariableSeeder
+php artisan db:seed --class=Works\\Web\\Seeders\\CssGeneralSeeder
+# php artisan db:seed --class=Works\\Web\\Seeders\\CssFontSeeder
 

@@ -1,30 +1,21 @@
 <?php
-
 namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Works\Web\Models\CssVariable;
-use App\Filament\Resources\CssVariableResource\Pages;
+use Works\Web\Models\CssGeneral;
+use App\Filament\Resources\CssGeneralResource\Pages;
 
-class CssVariableResource extends Resource
+class CssGeneralResource extends Resource
 {
-    protected static ?string $model = CssVariable::class;
+    protected static ?string $model = CssGeneral::class;
 
-    protected static ?string $navigationIcon = 'gmdi-color-lens-r';
+    protected static ?string $navigationIcon = 'heroicon-o-variable';
+    protected static ?int $navigationSort = 2; 
+
 
     protected static ?string $navigationGroup = 'CSS';
-
-    public static function getModelLabel(): string
-    {
-        return 'Css Color'; // Nombre en singular
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return 'Css Colors'; // Nombre en plural
-    }
 
     public static function form(Forms\Form $form): Forms\Form
     {
@@ -33,8 +24,8 @@ class CssVariableResource extends Resource
                 Forms\Components\TextInput::make('key')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\ColorPicker::make('value')
-                    ->label('Color Value')
+                Forms\Components\TextInput::make('value')
+                    ->label('General Value')
                     ->required(),
                 Forms\Components\Select::make('web_id')
                     ->relationship('web', 'name')
@@ -49,9 +40,7 @@ class CssVariableResource extends Resource
                 Tables\Columns\TextColumn::make('key')
                     ->label('Key'),
                 Tables\Columns\TextColumn::make('value')
-                    ->label('Value')
-                    ->formatStateUsing(fn(CssVariable $record) => "<div style='width: 30px; height: 30px; background-color: {$record->value}; border: 1px solid #000; border-radius: 15px;'></div>")
-                    ->html(),
+                    ->label('Value'),
                 Tables\Columns\TextColumn::make('web.name')
                     ->label('Web'),
             ])
@@ -66,12 +55,13 @@ class CssVariableResource extends Resource
             ]);
     }
 
+    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCssVariables::route('/'),
-            'create' => Pages\CreateCssVariable::route('/create'),
-            'edit' => Pages\EditCssVariable::route('/{record}/edit'),
+            'index' => Pages\ListCssGenerals::route('/'),
+            'create' => Pages\CreateCssGeneral::route('/create'),
+            'edit' => Pages\EditCssGeneral::route('/{record}/edit'),
         ];
     }
 }

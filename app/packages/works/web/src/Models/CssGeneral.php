@@ -5,7 +5,7 @@ namespace Works\Web\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CssVariable extends Model
+class CssGeneral extends Model
 {
     use HasFactory;
     protected $fillable = ['key', 'value', 'web_id'];
