@@ -57,7 +57,9 @@ php artisan db:seed
 ## Routes
 
 - /api/v1/webs -> Lists basic information about all websites in the system.
-- /api/v1/webs/{slug} -> Lists basic information about a specific website by slug.
+- /api/v1/webs/{webSlug} -> Lists basic information about a specific website by slug.
+- /api/v1/webs/{webSlug}/content -> Lists all the content associated with a website.
+- /api/v1/webs/{webSlug}/content/{contentSlug} -> Displays the content associated with a slug.
 
 ## Inserting information into the database
 
