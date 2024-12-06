@@ -26,11 +26,19 @@ class ContentResource extends Resource
                     ->relationship('author', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
+                    ->maxLength(255)
+                    ->required()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        if ($state) {
+                            $slug = str_replace(' ', '-', strtolower(trim($state)));
+                            $set('slug', $slug);
+                        }
+                    }),
+
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->unique(ignoreRecord: true)
-                    ->required(),
+
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),

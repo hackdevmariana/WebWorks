@@ -35,7 +35,7 @@ class CssVariableResource extends Resource
                     ->required()
                     ->afterStateUpdated(function ($state, callable $set) {
                         if ($state) {
-                            // Generar slug a partir del texto ingresado
+                            
                             $slug = '--' . str_replace(' ', '-', strtolower(trim($state)));
                             $set('key', $slug);
 
