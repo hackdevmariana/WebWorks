@@ -39,8 +39,8 @@ Route::prefix('api/v1')->group(function () {
         Route::get('contact/{contactSlug}', [ContactController::class, 'showContact']);
 
         // Contents
-        Route::get('content', [ContentController::class, 'index']);
-        Route::get('content/{contentSlug}', [ContentController::class, 'show']);
+        Route::get('contents', [ContentController::class, 'index']);
+        Route::get('contents/{contentSlug}', [ContentController::class, 'show']);
     });
 
 

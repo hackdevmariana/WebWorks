@@ -7,6 +7,7 @@ use Filament\Tables;
 use Filament\Resources\Resource;
 use Works\Web\Models\Content;
 use App\Filament\Resources\ContentResource\Pages;
+use Filament\Forms\Components\FileUpload;
 
 class ContentResource extends Resource
 {
@@ -47,8 +48,9 @@ class ContentResource extends Resource
                     ->maxLength(255),
                 Forms\Components\Textarea::make('text')
                     ->nullable(),
-                Forms\Components\TextInput::make('image')
-                    ->url()
+                FileUpload::make('image')
+                    ->image()
+                    ->imageEditor()
                     ->nullable(),
                 Forms\Components\TextInput::make('url')
                     ->url()
