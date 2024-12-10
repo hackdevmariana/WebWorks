@@ -30,7 +30,7 @@ class LinkResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('url')
-                    ->url()
+                    //->url()
                     ->required(),
                 Forms\Components\TextInput::make('icon')->nullable(),
             ]);
